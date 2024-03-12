@@ -1,0 +1,44 @@
+<html>
+    <header>
+        <title>Mini App</title>
+        <script src="MadLibStories.js" defer></script>
+        <script src="mini_app.js" defer></script>
+    </header>
+    <body>
+        <div id="story">
+            <h1>Mini App</h1>
+            <h2>Mad Lib Generator</h2>
+            <button id="generate story">Generate New Story</button>
+            <p></p> 
+            <p id="story-error" style="color: red;"></p>
+            <container id="inputContainer"></container>  
+            <p id="result"></p>
+        </div>
+        <button id="submit">Submit</button>
+        <p id="result"></p>
+        <div>
+            <label id="MC">
+                <h2>Mortgage Calculator</h2>
+                <div>Enter Principal Amount</div>
+                <input id="principal" type="text" value="425,000"/>
+                <div>Down Payment</div>
+                <input id="downpmt" type="text" value="85,000" />
+                <div>Enter Loan Term</div>
+                <input id="term" type="text" value="360" placeholder="Choose Years or Months"/>
+                <select id ="year-or-month" name="time">
+                    <option value="Months">Months</option>
+                    <option value="Years">Years</option>
+                </select>
+                <div>Enter Interest Rate</div>
+                <input id="rate" type="text" value="7.2" />
+                <select id ="compound" name="options">
+                    <option value="Monthly">Monthly (APR)</option>
+                    <option value="Annual">Annual (APY)</option>
+                    <option value="Quarterly">Quarterly</option>
+                </select>
+                <p id="error" style="color: red;"></p>
+                <p id="loan result">Your monthly loan payment will be $2307.88</p>
+            </label>
+          </div>
+
+</html>

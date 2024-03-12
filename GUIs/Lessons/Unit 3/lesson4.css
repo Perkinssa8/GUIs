@@ -1,0 +1,44 @@
+:root { /* root applies to everything and custom things begin with --
+    we are using this to create a custom css property. It is like a variable */
+    --primary-background-color: rgb(20,20,20);
+    --primary-gradient-color: linear-gradient(45deg, red, white);
+}
+
+html{
+    font-family: Arial, Helvetica, sans-serif
+}
+
+body{
+    background: var(--primary-background-color);
+    /* can specify an image or a color 
+    has a bunch of bad built-in colors 
+    probably won't use specified colors except white
+    use rgb(red,green,blue) or url () or #hexcode [#141414] instead*/
+    color: rgb(255,255,255);
+    /* this is for the text color */
+    background-image: var(--primary-gradient-color)
+    /* this is for the background image, goes from top to bottom 
+    use radial-gradient for circular*/
+}
+
+h1{
+    background-image: linear-gradient(to right, purple, pink, purple);
+}
+
+span{
+    background-image: linear-gradient(to right, purple, pink, purple);
+    font-size: 4em;
+    color: rgb(0,0,0,0); /*notice this has 4 values, the last one is the alpha value, which is the transparency*/
+    background-clip: text;
+    /* needs -webkit-background-clip: text; for safari or chrome 
+    this trick is allowing the background to shine through the clipped text 'image' */
+}
+
+img{
+    background-size: crop;
+    /* this makes the image a circle */
+    border: 2px solid white;
+    /* this makes the border white */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    /* this makes a shadow around the image */
+}

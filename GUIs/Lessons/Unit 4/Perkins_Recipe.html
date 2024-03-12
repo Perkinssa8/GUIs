@@ -1,0 +1,76 @@
+<html lang="en">
+    <head>
+        <title>Recipe Card Builder</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Protest+Riot&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="Recipe.css" defer />
+        <script src="Perkins_Recipe.js" defer></script>
+    </head>
+    <body data-theme="mediumText" class="light">
+        <header id="header">
+            <div id="headerBar">
+                <label for="darkMode" class="toggle">
+                    <input type="checkbox" class="darkMode" id="darkMode" />
+                    Dark Mode
+                </label>
+                <label for="largeText">
+                    <input class="text-size" name="text-size" type="radio" id="largeText" value="large" />
+                    Large
+                </label>
+                <label for="mediumText">
+                    <input class="text-size" name="text-size" type="radio" id="mediumText" value="medium" checked />
+                    Medium
+                </label>
+                <label for="smallText">
+                    <input class="text-size" name="text-size" type="radio" id="smallText" value="small" /> 
+                    Small
+                </label>
+            </div>
+            <div>
+                <button id="Title">
+                    <h1>Recipe Card Builder</h1>
+                </button>
+            </div>
+        </header>
+        <form id="recipeForm">
+            <fieldset id="information">
+                <legend>Recipe Information</legend>
+                <label for="recipeName">Recipe Name:</label>
+                <input type="text" id="recipeName" name="recipeName" required />
+                <label for="recipeAuthor">Author:</label>
+                <input type="text" id="recipeAuthor" name="recipeAuthor" required />
+                <label for="recipeDescription">Description:</label>
+                <textarea id="recipeDescription" name="recipeDescription"></textarea>
+                <label for="recipeCategory">Category:</label>
+                <select id="recipeCategory" name="recipeCategory" required>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Dessert">Dessert</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Ingredients</legend>
+                <input type="checkbox" class='multiple' id="bulk">Add multiple ingredients</input>
+                <div id="ingredients">
+                    <div class="ingredient">
+                        <div>
+                            <label for="ingredientName">Name:</label>
+                            <input type="text" id="ingredientName" name="ingredientName" required />
+                        </div>
+                        <div>
+                            <label for="ingredientAmount">Amount:</label>
+                            <input type="text" id="ingredientAmount" name="ingredientAmount" required />
+                        </div>
+                        <div>
+                            <label for="ingredientUnit">Unit:</label>
+                            <input type="text" id="ingredientUnit" name="ingredientUnit" required />
+                        </div>
+                    </div>
+                    <button id="submit">Add ingredient</button>
+                </div>
+            </fieldset>
+        <button type="button" id="card">Add Recipe to Library</button>   
+    </body>

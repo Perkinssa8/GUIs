@@ -1,0 +1,62 @@
+@font-face {
+  font-family: NotoJap;
+  src: url("NotoSansJP-Regular.ttf");
+  font-weight: normal; /*this is assumed*/
+}
+
+@font-face {
+  font-family: NotoJap;
+  src: url("NotoSansJP-Bold.ttf");
+  font-weight: bold;
+}
+
+html{
+  font-family: NotoJap, Arial, Helvetica, sans-serif;
+  /* find more fonts at fonts.google.com */
+
+}
+h1{
+  font-family: NotoJap, 'Times New Roman', Times, serif;
+  font-size: 128px;
+  /* default is 16px, but we can use the em unit to make it relative to the parent element */
+  /* better practice might be to use rem, which is relative to the root element (the document) */
+}
+
+h2{
+  font-size: 6em;
+}
+
+#p1{
+  font-family: NotoJap;
+  font-size: 2em;
+  color: red;
+}
+
+#p{
+  font-family: NotoJap;
+  font: 2em;
+  color: purple;
+  font-style: italic;
+}
+form {
+    border: 1px solid black;
+    margin: 16px 32px 64px 128px;
+    padding: 16px 32px 64px 128px;
+  }
+  
+  .spacer {
+    margin-bottom: 16px;
+  }
+
+  /* first you need to 'link' this to your html using <link rel="stylesheet" href="styles.css"> */
+  /* based off of 'selectors' and 'rules' */
+  /* the selector is like 'form' or 'h1' and the rule is like 'border: 1px solid black;' */
+  /* some examples are font-size, color, background-color, border, padding, margin, etc. */
+  /* you can also use 'classes' and 'ids' to apply styles to specific elements, use a hashtage to specify an id and a period to specify a class */
+  /* you can combine classes like 'class="spacer green"' and the element gets the green, and anything green lacks, it fills in with spacer attributes */
+#div-2 {
+    background: blue
+}
+
+/*somethings don't cascade like positioning, while size and font usually does*/
+/* form> div targets all the children of this

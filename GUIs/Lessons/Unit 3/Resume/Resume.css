@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@200;400;600;800&display=swap");
+:root {
+    --primary-color: rgba(76, 175, 80, 0.5);
+    --secondary-color: #dedad0;
+    --tertiary-color: #f5f5f5;
+    --quaternary-color: #000000;
+    --quinary-color: #545d61;
+    --blue-color: #2f8df2;
+    --blue-back: #02306195;
+}
+
+@font-face {
+    font-family: "Montserrat",;
+    src: url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@200;400;600;800&display=swap");
+} 
+
+body {
+    display: flex;
+    flex-flow: column wrap;
+    font-family: "Montserrat", Helvetica, sans-serif;
+    background-color: var(--blue-back);
+    color: var(--quaternary-color);
+    margin: 0;
+    padding: 0;
+}
+h1{
+    display:flex;
+    width:100%;
+    justify-content: center;
+}
+p {
+   font-size: medium; 
+   font-weight: 400;
+}
+.titlebar {
+    height: 400px; /* equivalent to 100vh and  */
+    background-image: url("./Photos/new_york.jpg") ;/*url('Resume/Photos/new_york.jpg'); */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.prints {
+    width:100%;
+    position: relative;
+    left: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: left;
+    gap: 20px;
+    margin-top: 20px;
+    margin-left: 10px; 
+}
+
+.quicklinks {
+    background-color: var(--primary-color);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: auto;
+    display: flex ;
+    flex-direction: row;
+    justify-content: right;
+    gap: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    border-radius: 20px;
+}
+.titlebar img {
+    width: 100px;
+    height: 130px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 50%;
+    object-fit: contain;
+    filter: grayscale(70%);
+    border: 2px solid var(--tertiary-color);
+}
+.titlebar h1 {
+    font-size: 3em;
+    color: var(--tertiary-color);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+.titlebar h2 {
+    color: var(--tertiary-color);
+}
+span{
+    width: 100%;
+    font-weight: 600;
+    font-size: larger;
+}
+li {
+    list-style-type: none;
+    padding: 2px;
+    margin: 0;
+    text-align: left;
+}
+.education {
+    background-color: var(--secondary-color);
+    width: 85%;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+    border:#00000028 solid 1px;
+    box-shadow: 0 0 5px rgba(19, 15, 15, 0.5);
+    display: flex;
+    justify-content:center;
+    flex-flow: column wrap;
+    align-items: center;
+    color:var(--quaternary-color);
+}
+.education h1{
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    display:flex;
+    flex-flow: row wrap;
+    width: 50em;
+    height: auto;
+    background-color: var(--tertiary-color);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: 0.3s;
+}
+button span {
+    justify-content: center;
+    color: var(--blue-back);
+    font-size: 2em;
+}
+
+button ul {
+    display: block;
+    position: relative;
+    align-content: left ;
+
+}
+
+button img {
+    width: auto;
+    height: auto;
+    padding: 16px;
+    max-height: 100px;
+    display: flex;
+    justify-content: left;
+    object-fit: contain;
+    border: 2px solid var(--tertiary-color);
+}
+
+.experience {
+    background-color: var(--secondary-color);
+    width: 85%;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+    border:#00000028 solid 1px;
+    box-shadow: 0 0 5px rgba(19, 15, 15, 0.5);
+    display: flex;
+    justify-content:center;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.skills {
+    background-color: var(--secondary-color);
+    width: 85%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    padding: 20px;
+    border:#00000028 solid 1px;
+    box-shadow: 0 0 5px rgba(19, 15, 15, 0.5);
+    display: flex;
+    justify-content:center;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.skills button {
+    width: auto;
+}

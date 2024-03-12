@@ -1,0 +1,27 @@
+<html lang="en"></html>
+    <head>
+        <title>Japanese characters</title>
+        <link rel="stylesheet" href="./Specificity.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Protest+Riot&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1> Specificity is a three-column weight - ID, Class, Type </h1>
+        <div id="defa"> I'm testing this div as a parent
+            <span> ###This is a span child of div
+                <p> does background color it apply to the grandchild?</p>
+            </span>
+            <p> ###This is a paragraph child of div and will be blue due to the div p which nests items</p>
+        </div>
+        <p> Does this work at all? This is an ID</p>
+        <div class="spacer"></div>
+        <div id="color"> To compare use this. This is a dev tag within body</div>
+        <h2>This is a header 2 child of body, and parent to p and grandparent to span 
+            <p> This is a paragraph child of h2
+                <span> This is a span child of p</span>
+            </p>
+
+        </h2>
+
+    </body>

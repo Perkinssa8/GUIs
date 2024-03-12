@@ -1,0 +1,140 @@
+
+:root {
+    --primary-color:rgba(227, 205, 193, 0.75); 
+    --secondary-color: #4e819f; /* Magenta */
+    --tertiary-color: #00ff00; /* Green */
+    --quaternary-color: #8f17ea ; /* Purple */
+    --accent-color-1: #00ffff; /* Cyan */
+    --accent-color-2: #000000; /* Black */
+    --accent-color-3: #ffffff; /* White */
+    --accent-color-4: #757279; /* Red */
+    --accent-color-5: rgba(64,34,105, 0.5); /* Dark Purple */
+}
+  
+.quicksand-style {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.dark{
+  background-image: url(wineNight.jpg);
+  background-color: var(--accent-color-5);
+  color: var(--accent-color-3);
+}
+
+.dark fieldset{
+  background-color: var(--accent-color-5);
+  color: var(--accent-color-3);
+}
+
+.dark #Title{
+  background-color: var(--accent-color-5);
+  color: var(--accent-color-3);
+  text-shadow: 0.1em 0.1em 0.2em var(--accent-color-3);
+  box-shadow: 0.1em 0.1em 0.2em var(--accent-color-3);
+}
+
+header{
+  position: relative;
+  text-align: center;
+}  
+
+#headerBar{
+  background-color: var(--secondary-color);
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#Title {
+  font-size: 1.5em;
+  background-color: var(--primary-color);
+  color: var(--accent-color-2);
+  text-shadow: 0.1em 0.1em 0.2em var(--accent-color-4);
+  box-shadow: 0.1em 0.1em 0.2em var(--accent-color-4);
+}
+
+fieldset legend{ /* This is a funky trick I discovered to allow the legend to follow the rules of its parents */
+  color: var(--delete-default);
+}
+
+body{
+  background-image: url("rollingPin.webp");
+  background-size: cover;
+  background-position: center;
+  background-color: var(--primary-color);
+  color: var(--accent-color-2);
+  font-family: "Quicksand", Arial, sans-serif;
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+body[data-theme="large"]{
+  font-size: 2em;
+}
+
+body[data-theme="small"]{
+  font-size: 0.75em;
+}
+
+fieldset {
+  margin:1.5em;
+  padding: auto;
+  background-color: var(--primary-color)
+  
+}
+
+legend {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--accent-color-2);
+}
+
+input[type="text"]{
+  font-size: 1em;
+  padding: 0.5em;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  border: 2px solid var(--accent-color-2);
+}
+
+.ingredient{
+  display:flex;
+  flex-direction: row;
+}
+
+.ingredient :is(label, input){
+  display: block;
+}
+
+
+.bulk {
+  background-color: var(--accent-color-4);
+  width: auto;
+  height: 4em;
+  border: 2px solid var(--accent-color-3);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: 1em;
+}
+
+button {
+  background-color: var(--secondary-color);
+  color: var(--accent-color-3);
+  border: 2px solid var(--accent-color-3);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: 1em;
+  box-shadow: #757279;
+}
+
+button:hover {
+  background-color:var(--accent-color-1) ;
+  color: var(--accent-color-2);
+}

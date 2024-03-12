@@ -1,0 +1,59 @@
+@font-face {
+    font-family: NotoJap;
+    src: url(NotoSansJP-VariableFont_wght.ttf);
+}
+
+.protest-riot-regular {
+    font-family: "Protest Riot", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+@font-face {
+    font-family: NotoJap;
+    src: url(NotoSansJP-VariableFont_wght.ttf);
+}
+html{
+    font-family: "Protest Riot", sans-serif;
+}
+h1,h2,p { /* this applies to all h1, h2, and p tags */
+    background-color: aqua;
+}
+p{
+    /* 0-0-1*/
+    font-family: NotoJap, 'Times New Roman', Times, serif;
+    font-size: 2em;
+    color: red;
+}
+
+div{
+    /* 0-0-1*/
+    font-family: NotoJap, 'Courier New', Courier, monospace;
+    font-size: 3rem;
+    color: purple;
+    
+    border: 1px solid black;
+    padding: 16px 32px;
+    
+}
+div p { /* this applies to all p tags inside a div */
+    background-color: blue;
+}
+#color{
+    /* 1-0-0 takes precedence over div because of specificity */
+    font-family: "Protest Riot", sans-serif;
+    font-size: 2rem;
+    color: blue;
+    font-style: italic;
+}
+#defa{
+    font-size: 16px;
+}
+.spacer {
+    /* 0-1-0 though the spacer is a div, it has higher specificity 
+    than the div, so the background stays green, but all other divs will be yellow */
+    margin-bottom: 16px;
+    background-color: green;
+
+}
+
