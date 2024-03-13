@@ -23,26 +23,35 @@
                     </div>
                 <div class="headerRight">
                     <div>
-                        <button id="+">Home</button>
+                        <button type="button" aria-label="menu" id="+" class="hamburgerMenu">
+                            <nav aria-label="menu" class = "AssemblyIcon" role="img">
+                                <label for="hamburger">Accessibility &#9776</label>
+                                <input type="checkbox" id="hamburger" />
+                                <div id="hamOptions" class="hamOptions">
+                                    <label for="darkMode" class="toggle">
+                                        <input type="checkbox" class="darkMode" id="darkMode" />
+                                        Dark Mode
+                                    </label>
+                                    <label for="largeText">
+                                        <input class="text-size" name="text-size" type="radio" id="largeText" value="large" />
+                                        Large
+                                    </label>
+                                    <label for="mediumText">
+                                        <input class="text-size" name="text-size" type="radio" id="mediumText" value="medium" checked />
+                                        Medium
+                                    </label>
+                                    <label for="smallText">
+                                        <input class="text-size" name="text-size" type="radio" id="smallText" value="small" /> 
+                                        Small
+                                    </label>
+                                <!-- <use href="icons.svg#menu"></use> -->
+
+                            </nav>
+                        </button>
                         <button id="notifications">Library</button>
                     </div>
                 </div>
-                <label for="darkMode" class="toggle">
-                    <input type="checkbox" class="darkMode" id="darkMode" />
-                    Dark Mode
-                </label>
-                <label for="largeText">
-                    <input class="text-size" name="text-size" type="radio" id="largeText" value="large" />
-                    Large
-                </label>
-                <label for="mediumText">
-                    <input class="text-size" name="text-size" type="radio" id="mediumText" value="medium" checked />
-                    Medium
-                </label>
-                <label for="smallText">
-                    <input class="text-size" name="text-size" type="radio" id="smallText" value="small" /> 
-                    Small
-                </label>
+                
             </div>
 
             

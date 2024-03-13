@@ -12,7 +12,12 @@
 }
 
 @media (max-width: 600px){
-
+  #hamOptions {
+    display: block;
+    box-sizing: inherit;
+    width: 100%;
+    border-top: 1px solid var(--accent-color-2);
+  }
 }
 .quicksand-style {
   font-family: "Quicksand", sans-serif;
@@ -94,6 +99,19 @@ header{
   align-items: center;
   display: inline-flex;
 }
+
+#hamOptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 1em 0 1em 0;
+  border-top: 1px solid var(--accent-color-2);
+}
+
+
 #Title {
   font-size: 1.5em;
   background-color: var(--primary-color);

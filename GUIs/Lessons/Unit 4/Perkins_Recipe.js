@@ -1,4 +1,5 @@
 const darkMode = document.querySelector('#darkMode');
+const accessibilityMenu = document.querySelector('#hamburger');
 const recipe = document.querySelector('#recipeForm');
 const recipeName = document.getElementById('recipeName');
 const submit = document.getElementById('submit');
