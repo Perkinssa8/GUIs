@@ -9,7 +9,8 @@
         <script src="Perkins_Recipe.js" defer></script>
     </head>
     <body data-theme="mediumText" class="light">
-        <header id="header">
+        <header id="header" class="fullHeader">
+            <div class="headerLeft" style="display:none"></div>
             <div id="headerBar">
                 <label for="darkMode" class="toggle">
                     <input type="checkbox" class="darkMode" id="darkMode" />
@@ -28,12 +29,14 @@
                     Small
                 </label>
             </div>
-            <div>
-                <button id="Title">
-                    <h1>Recipe Card Builder</h1>
-                </button>
-            </div>
+
+            
         </header>
+        <div>
+            <button id="Title">
+                <h1>Recipe Card Builder</h1>
+            </button>
+        </div>
         <form id="recipeForm">
             <fieldset id="information">
                 <legend>Recipe Information</legend>

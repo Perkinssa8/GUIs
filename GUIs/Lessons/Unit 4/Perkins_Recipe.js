@@ -128,12 +128,13 @@ bulk.addEventListener('change', (e) => {
         console.log('unchecked')
         let tableDiv = document.querySelector('.recipeTable');
         parentDiv.replaceChild(ingredientHTML, tableDiv);
-        let oldButton = document.querySelector('.add');
-        oldButton.remove();
+        // let oldButton = document.querySelector('.add');
+        // oldButton.remove();
     }
 });
 
-submit.addEventListener('click', () => {
+//submit.addEventListener('click', () => {//when the 'Add ingredient' button is clicked
+
     
 
 class writeRecipeToFile {
