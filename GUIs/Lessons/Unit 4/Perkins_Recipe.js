@@ -13,6 +13,7 @@ let parentDiv = document.querySelector('#ingredients');
 let obj= {};
 let tableRow = [];
 
+
 darkMode.addEventListener('change', (e) => {
     // if dark mode is enabled, add the class to the body
     if (e.target.checked) {

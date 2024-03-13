@@ -10,8 +10,23 @@
     </head>
     <body data-theme="mediumText" class="light">
         <header id="header" class="fullHeader">
-            <div class="headerLeft" style="display:none"></div>
             <div id="headerBar">
+                <div class="headerLeft">
+                    <div>
+                        <button id="home">Home</button>
+                        <button id="library">Library</button>
+                    </div>
+                </div>
+                <div class="headerCenter">
+                    <div>
+                        <input type="search" id="search" value="search a recipe"></input>
+                    </div>
+                <div class="headerRight">
+                    <div>
+                        <button id="+">Home</button>
+                        <button id="notifications">Library</button>
+                    </div>
+                </div>
                 <label for="darkMode" class="toggle">
                     <input type="checkbox" class="darkMode" id="darkMode" />
                     Dark Mode
@@ -32,7 +47,7 @@
 
             
         </header>
-        <div>
+        <div id="titleBox">
             <button id="Title">
                 <h1>Recipe Card Builder</h1>
             </button>
