@@ -92,16 +92,19 @@ header{
 }
 
 .headerCenter {
-  flex-grow: 1;
+  flex-grow: 2;
+  align-items: center;
+  justify-content: center;
 }
 
 .headerRight {
   align-items: center;
   display: inline-flex;
+  justify-content: flex-end;
 }
 
 #hamOptions {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -111,6 +114,13 @@ header{
   border-top: 1px solid var(--accent-color-2);
 }
 
+#hamburger {
+  display: none
+}
+
+#hamOptions .show {
+  display: block;
+}
 
 #Title {
   font-size: 1.5em;

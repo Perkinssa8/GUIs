@@ -1,8 +1,9 @@
 const darkMode = document.querySelector('#darkMode');
-const accessibilityMenu = document.querySelector('#hamburger');
+const accessibilityMenu = document.querySelector('.hamburgerMenu');
 const recipe = document.querySelector('#recipeForm');
 const recipeName = document.getElementById('recipeName');
 const submit = document.getElementById('submit');
+let hamOption = document.querySelector('#hamOptions');
 let bulk = document.querySelector('#bulk');
 let form = document.getElementById('recipeForm');
 let information = document.querySelector('#information');
@@ -25,7 +26,17 @@ darkMode.addEventListener('change', (e) => {
     }
 });
 
-[... document.getElementsByClassName("text-size")].forEach((el) => {
+accessibilityMenu.addEventListener('click', (e) => {
+    if (e.target.checked) {
+        hamOption.classList.add('show');
+        console.log('checked', e.target);
+    }
+    else {
+        console.log('unchecked', e.target);
+    };
+});
+
+[...document.getElementsByClassName("text-size")].forEach((el) => {
     el.addEventListener('change', (e) => {
         console.log(e.target.value);
         document.body.dataset.theme = e.target.value;

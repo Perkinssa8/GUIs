@@ -14,7 +14,7 @@
                 <div class="headerLeft">
                     <div>
                         <button id="home">Home</button>
-                        <button id="library">Library</button>
+                        <button id="cardBuilder">Card Builder</button>
                     </div>
                 </div>
                 <div class="headerCenter">
@@ -67,46 +67,8 @@
         </header>
         <div id="titleBox">
             <button id="Title">
-                <h1>Recipe Card Builder</h1>
+                <h1>Library</h1>
             </button>
         </div>
-        <form id="recipeForm">
-            <fieldset id="information">
-                <legend>Recipe Information</legend>
-                <label for="recipeName">Recipe Name:</label>
-                <input type="text" id="recipeName" name="recipeName" required />
-                <label for="recipeAuthor">Author:</label>
-                <input type="text" id="recipeAuthor" name="recipeAuthor" required />
-                <label for="recipeDescription">Description:</label>
-                <textarea id="recipeDescription" name="recipeDescription"></textarea>
-                <label for="recipeCategory">Category:</label>
-                <select id="recipeCategory" name="recipeCategory" required>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Dessert">Dessert</option>
-                </select>
-            </fieldset>
-            <fieldset>
-                <legend>Ingredients</legend>
-                <input type="checkbox" class='multiple' id="bulk">Add multiple ingredients</input>
-                <div id="ingredients">
-                    <div class="ingredient">
-                        <div>
-                            <label for="ingredientName">Name:</label>
-                            <input type="text" id="ingredientName" name="ingredientName" required />
-                        </div>
-                        <div>
-                            <label for="ingredientAmount">Amount:</label>
-                            <input type="text" id="ingredientAmount" name="ingredientAmount" required />
-                        </div>
-                        <div>
-                            <label for="ingredientUnit">Unit:</label>
-                            <input type="text" id="ingredientUnit" name="ingredientUnit" required />
-                        </div>
-                    </div>
-                    <button id="submit">Add ingredient</button>
-                </div>
-            </fieldset>
-        <button type="button" id="card">Add Recipe to Library</button>   
+         
     </body>
