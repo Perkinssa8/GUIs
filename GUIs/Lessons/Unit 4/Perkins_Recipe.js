@@ -1,8 +1,12 @@
 const darkMode = document.querySelector('#darkMode');
-const accessibilityMenu = document.querySelector('.hamburgerMenu');
+const whichPage = document.getElementById('whichPage');
+const hamburgerButton = document.querySelector('.hamburgerButton');
+const accessibilityMenu = document.querySelector('#hamOptions');
 const recipe = document.querySelector('#recipeForm');
 const recipeName = document.getElementById('recipeName');
 const submit = document.getElementById('submit');
+let subpage = document.querySelector('#subpage');
+let mainpage = document.querySelector('#main');
 let hamOption = document.querySelector('#hamOptions');
 let bulk = document.querySelector('#bulk');
 let form = document.getElementById('recipeForm');
@@ -16,6 +20,28 @@ let obj= {};
 let tableRow = [];
 
 
+document.getElementById('navigation').addEventListener('click', function(e) {
+    e.preventDefault(); // prevent the default action
+    let checkbox = document.getElementById('whichPage');
+    checkbox.checked = !checkbox.checked; // toggle the checkbox
+    let event = new Event('change'); // create a change event
+    checkbox.dispatchEvent(event); // dispatch the change event
+});
+
+whichPage.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        console.log('going to subpage');
+        mainpage.style.display = 'none';
+        subpage.style.display = 'block';
+    }
+    else{
+        console.log('going to main page');
+        mainpage.style.display = 'block';
+        subpage.style.display = 'none';        
+    }
+});
+
+
 darkMode.addEventListener('change', (e) => {
     // if dark mode is enabled, add the class to the body
     if (e.target.checked) {
@@ -25,16 +51,20 @@ darkMode.addEventListener('change', (e) => {
         document.body.classList.remove('dark');
     }
 });
-
-accessibilityMenu.addEventListener('click', (e) => {
-    if (e.target.checked) {
-        hamOption.classList.add('show');
-        console.log('checked', e.target);
-    }
-    else {
-        console.log('unchecked', e.target);
-    };
+hamburgerButton.addEventListener('click', (e) => {
+    accessibilityMenu.classList.toggle('show');
 });
+
+// accessibilityMenu.addEventListener('change', (e) => {
+//     if (e.target.checked) {
+//         hamOption.classList.add('show');
+//         console.log('checked', e.target);
+//     }
+//     else {
+//         hamOption.classList.remove('show');
+//         console.log('unchecked', e.target);
+//     };
+// });
 
 [...document.getElementsByClassName("text-size")].forEach((el) => {
     el.addEventListener('change', (e) => {

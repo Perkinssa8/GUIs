@@ -14,7 +14,9 @@
                 <div class="headerLeft">
                     <div>
                         <button id="home">Home</button>
-                        <button id="library">Library</button>
+                        <button for="whichPage" id="navigation">Library
+                            <input type="checkbox" style="display:none;" id="whichPage"></input>
+                        </button>
                     </div>
                 </div>
                 <div class="headerCenter">
@@ -24,7 +26,7 @@
                 </div>
                 <div class="headerRight">
                     <div class="menuWrapper">
-                        <button type="button" aria-label="menu" id="hamburgerButton" class="hamburgerMenu">
+                        <button type="button" aria-label="menu" id="hamburgerButton">
                             <nav aria-label="menu" class = "AssemblyIcon" role="img">
                                 <label for="hamburger">Accessibility &#9776</label>
                                 <input type="checkbox" id="hamburger" />
@@ -62,51 +64,59 @@
                 </div>
                 
             </div>
-
-            
         </header>
-        <div id="titleBox">
-            <button id="Title">
-                <h1>Recipe Card Builder</h1>
-            </button>
-        </div>
-        <form id="recipeForm">
-            <fieldset id="information">
-                <legend>Recipe Information</legend>
-                <label for="recipeName">Recipe Name:</label>
-                <input type="text" id="recipeName" name="recipeName" required />
-                <label for="recipeAuthor">Author:</label>
-                <input type="text" id="recipeAuthor" name="recipeAuthor" required />
-                <label for="recipeDescription">Description:</label>
-                <textarea id="recipeDescription" name="recipeDescription"></textarea>
-                <label for="recipeCategory">Category:</label>
-                <select id="recipeCategory" name="recipeCategory" required>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Dessert">Dessert</option>
-                </select>
-            </fieldset>
-            <fieldset>
-                <legend>Ingredients</legend>
-                <input type="checkbox" class='multiple' id="bulk">Add multiple ingredients</input>
-                <div id="ingredients">
-                    <div class="ingredient">
-                        <div>
-                            <label for="ingredientName">Name:</label>
-                            <input type="text" id="ingredientName" name="ingredientName" required />
+        <main id="main" style="display:block" class="page">
+            <div id="titleBox">
+                <button id="Title">
+                    <h1>Library</h1>
+                </button>
+            </div>
+        </main>
+        <section id="subPage" style="display:none;" class="page">
+            <div id="titleBox">
+                <button id="Title">
+                    <h1>Recipe Card Builder</h1>
+                </button>
+            </div>
+            <form id="recipeForm">
+                <fieldset id="information">
+                    <legend>Recipe Information</legend>
+                    <label for="recipeName">Recipe Name:</label>
+                    <input type="text" id="recipeName" name="recipeName" required />
+                    <label for="recipeAuthor">Author:</label>
+                    <input type="text" id="recipeAuthor" name="recipeAuthor" required />
+                    <label for="recipeDescription">Description:</label>
+                    <textarea id="recipeDescription" name="recipeDescription"></textarea>
+                    <label for="recipeCategory">Category:</label>
+                    <select id="recipeCategory" name="recipeCategory" required>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Dessert">Dessert</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <legend>Ingredients</legend>
+                    <input type="checkbox" class='multiple' id="bulk">Add multiple ingredients</input>
+                    <div id="ingredients">
+                        <div class="ingredient">
+                            <div>
+                                <label for="ingredientName">Name:</label>
+                                <input type="text" id="ingredientName" name="ingredientName" required />
+                            </div>
+                            <div>
+                                <label for="ingredientAmount">Amount:</label>
+                                <input type="text" id="ingredientAmount" name="ingredientAmount" required />
+                            </div>
+                            <div>
+                                <label for="ingredientUnit">Unit:</label>
+                                <input type="text" id="ingredientUnit" name="ingredientUnit" required />
+                            </div>
                         </div>
-                        <div>
-                            <label for="ingredientAmount">Amount:</label>
-                            <input type="text" id="ingredientAmount" name="ingredientAmount" required />
-                        </div>
-                        <div>
-                            <label for="ingredientUnit">Unit:</label>
-                            <input type="text" id="ingredientUnit" name="ingredientUnit" required />
-                        </div>
+                        <button id="submit">Add ingredient</button>
                     </div>
-                    <button id="submit">Add ingredient</button>
-                </div>
-            </fieldset>
-        <button type="button" id="card">Add Recipe to Library</button>   
+                </fieldset>
+            <button type="button" id="card">Add Recipe to Library</button>   
+            </form>
+        </section>
     </body>
