@@ -18,6 +18,89 @@ let inputs = form.querySelectorAll('input, textarea, select');
 let parentDiv = document.querySelector('#ingredients');
 let obj= {};
 let tableRow = [];
+let saveToLibrary = document.getElementById('library')
+let recipesFiles = document.querySelectorAll('.recipeFiles');
+
+class Recipe {
+  constructor(){
+    this.recipes = [];
+  }
+
+  addRecipe(recipe){
+    this.recipes.push(recipe);
+  }
+
+  removeRecipe(index){
+    this.recipes.splice(index, 1);
+  }
+
+  getRecipe(index){
+    return this.recipes[index];
+  }
+
+  addToLibrary() {// has no parameter, because each time it is called, it reloads the whole library
+    let library = document.getElementById('main');
+    library.innerHTML = '';
+    this.recipes.forEach((recipe, index) => {
+      let card = document.createElement('div');
+      card.classList.add('recipeCard');
+      card.innerHTML = `
+        <h3>${recipe.title}</h3>
+        <button class="recipeFiles" id="recipe${index}" data-index="${index}">View</button>
+        <button class="recipeFiles" id="edit${index}" data-index="${index}">Edit</button>
+        <button class="recipeFiles" id="delete${index}" data-index="${index}">Delete</button>
+      `;
+      library.appendChild(card);
+    });
+    [...recipesFiles].forEach((el) => {
+      el.addEventListener('click', (e) => {
+        console.log(e.target);
+        console.log(e.target.id);
+        console.log(e.target.dataset);
+        if (e.target.id.includes('recipe')) {
+          let index = e.target.dataset.index;
+          let recipe = this.recipes[index];
+          writeRecipeToFile(recipe);
+        }
+        if (e.target.id.includes('edit')) { // makes the recipe.ingredients into a table of inputs that can be edited
+          let index = e.target.dataset.index;
+          let recipe = this.recipes[index];
+          console.log('editing', recipe);
+          recipeName.value = recipe.title;
+          description.value = recipe.description;
+          author.value = recipe.author;
+          category.value = recipe.category;
+          let table = document.getElementById('recipeTable');
+          let rowSize = recipe.ingredients.length;
+          let newTable = createTable('recipeTable', 'recipeTable', rowSize, recipe.ingredients);
+          parentDiv.replaceChild(newTable, table);
+          let oldButton = document.querySelector('#submit');
+          oldButton.remove();
+          let newButton = createButton('submit', 'Update Recipe');
+          form.appendChild(newButton);
+          newButton.addEventListener('click', () => {
+            recipe.title = recipeName.value;
+            recipe.description = description.value;
+            recipe.author = author.value;
+            recipe.category = category.value;
+            recipe.ingredients = [];
+            recipe.instructions = [];
+            for (let i = 0; i < rowSize; i++) {
+              recipe.ingredients.push(document.getElementById(`ingredient${i}`).value);
+              recipe.instructions.push(document.getElementById(`instruction${i}`).value);
+            }
+            this.addToLibrary();
+          });
+        }
+        if (e.target.id.includes('delete')) {
+          let index = e.target.dataset.index;
+          this.removeRecipe(index);
+        }
+      });
+    });
+  };
+};
+let myRecipes = new Recipe();
 
 
 document.getElementById('navigation').addEventListener('click', function(e) {
@@ -171,7 +254,26 @@ bulk.addEventListener('change', (e) => {
 
 //submit.addEventListener('click', () => {//when the 'Add ingredient' button is clicked
 
-    
+
+saveToLibrary.addEventListener('click', () => {
+  myRecipes.addRecipe(obj);
+});
+
+[...recipesFiles].forEach((el) => {
+  el.addEventListener('click', (e) => {
+    console.log(e.target);
+    console.log(e.target.id);
+    console.log(e.target.dataset);
+  });
+  el.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      console.log(e.target);
+      console.log(e.target.id);
+      console.log(e.target.dataset);
+    };
+  });
+}); 
+  
 
 function writeRecipeToFile(recipe) {
     // taking from
@@ -248,4 +350,107 @@ function writeRecipeToFile(recipe) {
       </html>
     `;
     download(output, `recipe-card.html`);
-  }
+}
+
+let defaultRecipe ={
+    title: "Grandma's Broccoli Cheese Soup", // the name of the recipe
+    ingredients: [
+      "2 cups of shredded cheddar cheese",
+      "1 block of velveeta",
+      "3 cups of chopped broccoli",
+      "1/2 cup of butter",
+      "1 can of cream of chicken soup"
+    ],
+    instructions: [
+      "turn on crockpot to high",
+      "mix in the ingredients except the brocolli",
+      "cook for 60 minutes",
+      "add the broccoli in and stir thoroughly",
+      "cook for the remaining 40 minutes",
+      "turn crockpot to low heat until served"
+    ]
+};
+
+myRecipes.addRecipe(defaultRecipe);
+console.log(myRecipes.getRecipe(0));
+myRecipes.addToLibrary();
+
+// class Recipe {
+//   constructor(){
+//     this.recipes = [];
+//   }
+
+//   addRecipe(recipe){
+//     this.recipes.push(recipe);
+//   }
+
+//   removeRecipe(index){
+//     this.recipes.splice(index, 1);
+//   }
+
+//   addToLibrary() {// has no parameter, because each time it is called, it reloads the whole library
+//     let library = document.getElementById('main');
+//     library.innerHTML = '';
+//     this.recipes.forEach((recipe, index) => {
+//       let card = document.createElement('div');
+//       card.classList.add('recipeCard');
+//       card.innerHTML = `
+//         <h3>${recipe.title}</h3>
+//         <button class="recipeFiles" id="recipe${index}" data-index="${index}">View</button>
+//         <button class="recipeFiles" id="edit${index}" data-index="${index}">Edit</button>
+//         <button class="recipeFiles" id="delete${index}" data-index="${index}">Delete</button>
+//       `;
+//       library.appendChild(card);
+//     });
+//     [...recipesFiles].forEach((el) => {
+//       el.addEventListener('click', (e) => {
+//         console.log(e.target);
+//         console.log(e.target.id);
+//         console.log(e.target.dataset);
+//         if (e.target.id.includes('recipe')) {
+//           let index = e.target.dataset.index;
+//           let recipe = this.recipes[index];
+//           writeRecipeToFile(recipe);
+//         }
+//         if (e.target.id.includes('edit')) { // makes the recipe.ingredients into a table of inputs that can be edited
+//           let index = e.target.dataset.index;
+//           let recipe = this.recipes[index];
+//           console.log('editing', recipe);
+//           recipeName.value = recipe.title;
+//           description.value = recipe.description;
+//           author.value = recipe.author;
+//           category.value = recipe.category;
+//           let table = document.getElementById('recipeTable');
+//           let rowSize = recipe.ingredients.length;
+//           let newTable = createTable('recipeTable', 'recipeTable', rowSize, recipe.ingredients);
+//           parentDiv.replaceChild(newTable, table);
+//           let oldButton = document.querySelector('#submit');
+//           oldButton.remove();
+//           let newButton = createButton('submit', 'Update Recipe');
+//           form.appendChild(newButton);
+//           newButton.addEventListener('click', () => {
+//             recipe.title = recipeName.value;
+//             recipe.description = description.value;
+//             recipe.author = author.value;
+//             recipe.category = category.value;
+//             recipe.ingredients = [];
+//             recipe.instructions = [];
+//             for (let i = 0; i < rowSize; i++) {
+//               recipe.ingredients.push(document.getElementById(`ingredient${i}`).value);
+//               recipe.instructions.push(document.getElementById(`instruction${i}`).value);
+//             }
+//             this.addToLibrary();
+//           });
+//         }
+//         if (e.target.id.includes('delete')) {
+//           let index = e.target.dataset.index;
+//           this.removeRecipe(index);
+//         }
+//       });
+//     });
+//   };
+// };
+
+
+// myRecipes.addRecipe(defaultRecipe);
+// myRecipes.addToLibrary();

@@ -11,14 +11,7 @@
     --accent-color-5: rgba(64,34,105, 0.5); /* Dark Purple */
 }
 
-@media (max-width: 600px){
-  #hamOptions {
-    display: block;
-    box-sizing: inherit;
-    width: 100%;
-    border-top: 1px solid var(--accent-color-2);
-  }
-}
+
 .quicksand-style {
   font-family: "Quicksand", sans-serif;
   font-optical-sizing: auto;

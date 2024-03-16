@@ -5,7 +5,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Protest+Riot&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="Recipe.css" defer />
+        <link rel="stylesheet" media="screen and (min-width: 1000px)" href="Recipe_wide.css" defer />
+        <link rel="stylesheet" media="screen and (max-width: 999px)" href="Recipe_narrow.css" defer />
         <script src="Perkins_Recipe.js" defer></script>
     </head>
     <body data-theme="mediumText" class="light">
@@ -118,7 +119,7 @@
                 </fieldset>
                 <fieldset>
                     <legend>Instructions</legend>
-                    <input type="checkbox" class='multiple' id="bulk">Add multiple instructions</input>
+                    <input type="checkbox" class='multiple' id="idkwhy">Add multiple instructions</input>
                     <div id="instructions">
                         <div class="instruction">
                             <label for="instruction">Instruction:</label>
@@ -127,7 +128,7 @@
                         <button id="submit">Add instruction</button>
                     </div>
                 </fieldset>
-            <button type="button" id="card">Add Recipe to Library</button>   
+            <button type="button" id="library">Add Recipe to Library</button>   
             </form>
         </section>
     </body>
