@@ -120,15 +120,15 @@
                         <button id="submit">Add ingredient</button>
                     </div>
                 </fieldset>
-                <fieldset>
+                <fieldset id="instructions">
                     <legend>Instructions</legend>
-                    <input type="checkbox" class='multiple' id="numberedInstructions">Add numbered instructions</input>
-                    <div id="instructions">
+                    <input type="checkbox" class='multiple' id="multipleInstructions">Add multiple instructions</input>
+                    <div id="instruction">
                         <div class="instruction">
                             <label for="instruction">Instruction: </label>
                             <input id="instruction" name="instruction" required></textarea>
                         </div>
-                        <button id="newInstruction">Add instruction</button>
+                        <button type="button" id="newInstruction">Add instruction</button>
                     </div>
                 </fieldset>
             <button type="button" id="saveToLibrary">Add Recipe to Library</button>   
