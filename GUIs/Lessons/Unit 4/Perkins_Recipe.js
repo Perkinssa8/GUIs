@@ -247,38 +247,6 @@ bulk.addEventListener('change', (e) => {// to add multiple ingredients
             let addButtons = document.querySelectorAll('.add');
             let deleteButtons = document.querySelectorAll('.deleteB');
 
-            // Variables declared to remove and add event listeners -  only took me 4 hours to figure out this part alone
-            let addListener = (e) => {
-              let table = document.getElementById('recipeTable');
-              addButtons.forEach((el) => {
-          el.addEventListener('click', (e) => {
-            let rowIndex = e.target.parentNode.parentNode.rowIndex;
-            console.log('rowIndex', rowIndex);
-            let row = table.insertRow(rowIndex + 1);
-            let cell1 = row.insertCell(0);
-            let cell2 = row.insertCell(1);
-            let cell3 = row.insertCell(2);
-            let cell4 = row.insertCell(3);
-            let cell5 = row.insertCell(4);
-            let rowSize = rowIndex;
-            cell1.innerHTML = `<input id="ingredient${rowSize}" value=""></input>`;
-            cell2.innerHTML = `<input id="amount${rowSize}" value=""></input>`;
-            cell3.innerHTML = `<input id="unit${rowSize}" value=""></input>`;
-            cell4.innerHTML = `<button type="button" class="deleteB" id="delete${rowSize}">&#45;</button>`;
-            cell5.innerHTML = `<button type="button" class="add" id="add${rowSize}">&#43;</button>`;
-            addListener(); // Add event listener to the newly generated add button
-            deleteListener(); // Add event listener to the newly generated delete button
-          });
-              });
-            }
-
-            let deleteListener = (e) => {
-              let table = document.getElementById('recipeTable');
-              let rowIndex = e.target.parentNode.parentNode.rowIndex;
-              console.log('rowIndex', rowIndex);
-              table.deleteRow(rowIndex);
-            }
-
             addButtons.forEach((el) => {
               el.removeEventListener('click', addListener);
               el.addEventListener('click', addListener);
@@ -287,11 +255,39 @@ bulk.addEventListener('change', (e) => {// to add multiple ingredients
             deleteButtons.forEach((el) => {
               el.removeEventListener('click', deleteListener);
               el.addEventListener('click', deleteListener);
-            });
-            
-            addListener(); // Add event listener to the initial add button
-            deleteListener(); // Add event listener to the initial delete button
-        });
+            });            
+        })
+   
+        // Variables declared to remove and add event listeners -  only took me 4 hours to figure out this part alone
+        let addListener = (e) => {
+          let table = document.getElementById('recipeTable');
+          let rowIndex = e.target.parentNode.parentNode.rowIndex;
+          console.log('rowIndex', rowIndex);
+          let row = table.insertRow(rowIndex + 1);
+          let cell1 = row.insertCell(0);
+          let cell2 = row.insertCell(1);
+          let cell3 = row.insertCell(2);
+          let cell4 = row.insertCell(3);
+          let cell5 = row.insertCell(4);
+          let rowSize = rowIndex;
+          cell1.innerHTML = `<input id="ingredient${rowSize}" value=""></input>`;
+          cell2.innerHTML = `<input id="amount${rowSize}" value=""></input>`;
+          cell3.innerHTML = `<input id="unit${rowSize}" value=""></input>`;
+          cell4.innerHTML = `<button type="button" class="deleteB" id="delete${rowSize}">&#45;</button>`;
+          cell5.innerHTML = `<button type="button" class="add" id="add${rowSize}">&#43;</button>`;
+          addListener(e); // Add event listener to the newly generated add button
+          deleteListener(e); // Add event listener to the newly generated delete button
+        }
+
+        let deleteListener = (e) => {
+          let table = document.getElementById('recipeTable');
+          let rowIndex = e.target.parentNode.parentNode.rowIndex;
+          console.log('rowIndex', rowIndex);
+          table.deleteRow(rowIndex);
+        }
+        addListener(e); // Add event listener to the initial add button
+        deleteListener(e); // Add event listener to the initial delete button
+
         // If the user wants to go back to adding ingredients one at a time
     } else {
         console.log('unchecked')
