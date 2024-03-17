@@ -15,6 +15,7 @@ let description = document.querySelector('#recipeDescription');
 let category = document.querySelector('#recipeCategory');
 let inputs = form.querySelectorAll('input, textarea, select');
 let parentDiv = document.querySelector('#ingredients');
+let table = document.getElementById('recipeTable');
 let obj= {};
 let tableRow = [];
 let saveToLibrary = document.getElementById('saveToLibrary')
@@ -190,11 +191,11 @@ function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'reci
         let ingredient = directory['ingredient' + (i+1)];
         let amount = directory.amount;
         let unit = directory.unit;  
-        cell1.innerHTML = `<input id="amountT${i}" value="${amount}"></input>`
+        cell1.innerHTML = `<input class="referenceCell" id="amountT${i}" value="${amount}"></input>`
         cell2.innerHTML = `<input id="unitT${i}" value = "${unit}"></input>`
         cell3.innerHTML = `<input id="ingredientT${i}" value="${ingredient}"></input>`
-        cell4.innerHTML = `<button class="delete" id="delete${i}">&#45;</button>`;
-        cell5.innerHTML = `<button class="add" id="add${i}">&#43;</button>`;
+        cell4.innerHTML = `<button type="button" class="deleteB" id="delete${i}">&#45;</button>`;
+        cell5.innerHTML = `<button type="button" class="add" id="add${i}">&#43;</button>`;
     }
     return table;
 }
@@ -220,6 +221,7 @@ function parseIngredients(input) {
 let ingredientHTML;
 let cardData
 bulk.addEventListener('change', (e) => {// to add multiple ingredients
+
     if (e.target.checked) {
         console.log('checked');
         let ingredient = document.querySelector('.ingredient');
@@ -228,6 +230,10 @@ bulk.addEventListener('change', (e) => {// to add multiple ingredients
         parentDiv.replaceChild(tableDiv, ingredient); //replaces the input with a textarea
         // generate a table based on the amount of ingredients
         let table = document.getElementById('recipeArea');
+        
+        
+
+        // To convert the input into a table
         table.addEventListener('blur', (e) => {
             console.log('blur event', e.target);
             let lines = parseIngredients(e.target.value);
@@ -236,24 +242,57 @@ bulk.addEventListener('change', (e) => {// to add multiple ingredients
             console.log('rowSize', rowSize)
             let newTable = createTable('recipeTable', 'recipeTable', rowSize, lines);
             parentDiv.replaceChild(newTable, tableDiv);
-            let add = document.querySelector('.add');
-            add.addEventListener('click', (e) => {
-              let rowIndex = e.target.id.split('add')[1];
+            
+            // add event listeners to the buttons, including new ones
+            let addButtons = document.querySelectorAll('.add');
+            let deleteButtons = document.querySelectorAll('.deleteB');
+
+            // Variables declared to remove and add event listeners -  only took me 4 hours to figure out this part alone
+            let addListener = (e) => {
               let table = document.getElementById('recipeTable');
-              let row = table.insertRow(rowIndex);
-              let cell1 = row.insertCell(0);
-              let cell2 = row.insertCell(1);
-              let cell3 = row.insertCell(2);
-              let cell4 = row.insertCell(3);
-              let cell5 = row.insertCell(4);
-              let rowSize = table.rows.length;
-              cell1.innerHTML = `<input id="ingredient${rowSize}" value=""></input>`;
-              cell2.innerHTML = `<input id="amount${rowSize}" value=""></input>`;
-              cell3.innerHTML = `<input id="unit${rowSize}" value=""></input>`;
-              cell4.innerHTML = `<button class="delete" id="delete${rowSize}">&#45;</button>`;
-              cell5.innerHTML = `<button class="add" id="add${rowSize}">&#43;</button>`;
+              addButtons.forEach((el) => {
+          el.addEventListener('click', (e) => {
+            let rowIndex = e.target.parentNode.parentNode.rowIndex;
+            console.log('rowIndex', rowIndex);
+            let row = table.insertRow(rowIndex + 1);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
+            let cell5 = row.insertCell(4);
+            let rowSize = rowIndex;
+            cell1.innerHTML = `<input id="ingredient${rowSize}" value=""></input>`;
+            cell2.innerHTML = `<input id="amount${rowSize}" value=""></input>`;
+            cell3.innerHTML = `<input id="unit${rowSize}" value=""></input>`;
+            cell4.innerHTML = `<button type="button" class="deleteB" id="delete${rowSize}">&#45;</button>`;
+            cell5.innerHTML = `<button type="button" class="add" id="add${rowSize}">&#43;</button>`;
+            addListener(); // Add event listener to the newly generated add button
+            deleteListener(); // Add event listener to the newly generated delete button
+          });
+              });
+            }
+
+            let deleteListener = (e) => {
+              let table = document.getElementById('recipeTable');
+              let rowIndex = e.target.parentNode.parentNode.rowIndex;
+              console.log('rowIndex', rowIndex);
+              table.deleteRow(rowIndex);
+            }
+
+            addButtons.forEach((el) => {
+              el.removeEventListener('click', addListener);
+              el.addEventListener('click', addListener);
             });
+            
+            deleteButtons.forEach((el) => {
+              el.removeEventListener('click', deleteListener);
+              el.addEventListener('click', deleteListener);
+            });
+            
+            addListener(); // Add event listener to the initial add button
+            deleteListener(); // Add event listener to the initial delete button
         });
+        // If the user wants to go back to adding ingredients one at a time
     } else {
         console.log('unchecked')
         let tableDiv = document.querySelector('.recipeTable');
@@ -263,8 +302,17 @@ bulk.addEventListener('change', (e) => {// to add multiple ingredients
     }
 });
 
-//submit.addEventListener('click', () => {//when the 'Add ingredient' button is clicked
 
+
+
+
+// [...document.querySelectorAll('.referenceCell')].forEach((el) => {
+//   el.addEventListener('focus', (e) => {
+//     console.log('focused', e.target);
+//     let referenceIndex = e.target.parentNode.rowIndex;
+//     console.log('referenceIndex', referenceIndex);
+//   });
+// });
 
 saveToLibrary.addEventListener('click', () => {
   myRecipes.addRecipe(obj);
