@@ -1,13 +1,12 @@
 const darkMode = document.querySelector('#darkMode');
 const whichPage = document.getElementById('whichPage');
-const hamburgerButton = document.querySelector('.hamburgerButton');
-const accessibilityMenu = document.querySelector('#hamOptions');
+const hamburgerButton = document.querySelector('#hamburgerButton');
+const hamOptions = document.querySelector('#hamOptions');
 const recipe = document.querySelector('#recipeForm');
 const recipeName = document.getElementById('recipeName');
 const submit = document.getElementById('submit');
 let subpage = document.querySelector('#subpage');
 let mainpage = document.querySelector('#main');
-let hamOption = document.querySelector('#hamOptions');
 let bulk = document.querySelector('#bulk');
 let form = document.getElementById('recipeForm');
 let information = document.querySelector('#information');
@@ -18,8 +17,8 @@ let inputs = form.querySelectorAll('input, textarea, select');
 let parentDiv = document.querySelector('#ingredients');
 let obj= {};
 let tableRow = [];
-let saveToLibrary = document.getElementById('library')
-let recipesFiles = document.querySelectorAll('.recipeFiles');
+let saveToLibrary = document.getElementById('saveToLibrary')
+
 
 class Recipe {
   constructor(){
@@ -39,10 +38,10 @@ class Recipe {
   }
 
   addToLibrary() {// has no parameter, because each time it is called, it reloads the whole library
-    let library = document.getElementById('main');
+    let library = document.getElementById('recipeLibrary');
     library.innerHTML = '';
     this.recipes.forEach((recipe, index) => {
-      let card = document.createElement('div');
+      let card = document.createElement('button');
       card.classList.add('recipeCard');
       card.innerHTML = `
         <h3>${recipe.title}</h3>
@@ -52,12 +51,12 @@ class Recipe {
       `;
       library.appendChild(card);
     });
-    [...recipesFiles].forEach((el) => {
+    let recipeFiles = document.querySelectorAll('.recipeFiles');
+    console.log('these are recipeFiles:', recipeFiles);
+    [...recipeFiles].forEach((el) => {
       el.addEventListener('click', (e) => {
-        console.log(e.target);
-        console.log(e.target.id);
-        console.log(e.target.dataset);
         if (e.target.id.includes('recipe')) {
+          console.log('viewing');	
           let index = e.target.dataset.index;
           let recipe = this.recipes[index];
           writeRecipeToFile(recipe);
@@ -103,14 +102,17 @@ class Recipe {
 let myRecipes = new Recipe();
 
 
-document.getElementById('navigation').addEventListener('click', function(e) {
+function checkButton(buttonID, checkboxID) {
+  document.getElementById(`${buttonID}`).addEventListener('click', function(e) {
     e.preventDefault(); // prevent the default action
-    let checkbox = document.getElementById('whichPage');
+    let checkbox = document.getElementById(`${checkboxID}`);
     checkbox.checked = !checkbox.checked; // toggle the checkbox
     let event = new Event('change'); // create a change event
     checkbox.dispatchEvent(event); // dispatch the change event
 });
+}
 
+checkButton('navigation', 'whichPage'	)
 whichPage.addEventListener('change', (e) => {
     if (e.target.checked) {
         console.log('going to subpage');
@@ -124,7 +126,17 @@ whichPage.addEventListener('change', (e) => {
     }
 });
 
-
+checkButton('hamburgerButton', 'hamburger')
+hamburger.addEventListener('change', (e) => {
+  if (e.target.checked) {
+      hamOptions.classList.add('show');
+      console.log('checked', e.target);
+  }
+  else {
+      hamOptions.classList.remove('show');
+      console.log('unchecked', e.target);
+  };
+});
 darkMode.addEventListener('change', (e) => {
     // if dark mode is enabled, add the class to the body
     if (e.target.checked) {
@@ -134,20 +146,7 @@ darkMode.addEventListener('change', (e) => {
         document.body.classList.remove('dark');
     }
 });
-// hamburgerButton.addEventListener('click', (e) => {
-//     accessibilityMenu.classList.toggle('show');
-// });
 
-// accessibilityMenu.addEventListener('change', (e) => {
-//     if (e.target.checked) {
-//         hamOption.classList.add('show');
-//         console.log('checked', e.target);
-//     }
-//     else {
-//         hamOption.classList.remove('show');
-//         console.log('unchecked', e.target);
-//     };
-// });
 
 [...document.getElementsByClassName("text-size")].forEach((el) => {
     el.addEventListener('change', (e) => {
@@ -259,20 +258,6 @@ saveToLibrary.addEventListener('click', () => {
   myRecipes.addRecipe(obj);
 });
 
-[...recipesFiles].forEach((el) => {
-  el.addEventListener('click', (e) => {
-    console.log(e.target);
-    console.log(e.target.id);
-    console.log(e.target.dataset);
-  });
-  el.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      console.log(e.target);
-      console.log(e.target.id);
-      console.log(e.target.dataset);
-    };
-  });
-}); 
   
 
 function writeRecipeToFile(recipe) {
@@ -374,83 +359,3 @@ let defaultRecipe ={
 myRecipes.addRecipe(defaultRecipe);
 console.log(myRecipes.getRecipe(0));
 myRecipes.addToLibrary();
-
-// class Recipe {
-//   constructor(){
-//     this.recipes = [];
-//   }
-
-//   addRecipe(recipe){
-//     this.recipes.push(recipe);
-//   }
-
-//   removeRecipe(index){
-//     this.recipes.splice(index, 1);
-//   }
-
-//   addToLibrary() {// has no parameter, because each time it is called, it reloads the whole library
-//     let library = document.getElementById('main');
-//     library.innerHTML = '';
-//     this.recipes.forEach((recipe, index) => {
-//       let card = document.createElement('div');
-//       card.classList.add('recipeCard');
-//       card.innerHTML = `
-//         <h3>${recipe.title}</h3>
-//         <button class="recipeFiles" id="recipe${index}" data-index="${index}">View</button>
-//         <button class="recipeFiles" id="edit${index}" data-index="${index}">Edit</button>
-//         <button class="recipeFiles" id="delete${index}" data-index="${index}">Delete</button>
-//       `;
-//       library.appendChild(card);
-//     });
-//     [...recipesFiles].forEach((el) => {
-//       el.addEventListener('click', (e) => {
-//         console.log(e.target);
-//         console.log(e.target.id);
-//         console.log(e.target.dataset);
-//         if (e.target.id.includes('recipe')) {
-//           let index = e.target.dataset.index;
-//           let recipe = this.recipes[index];
-//           writeRecipeToFile(recipe);
-//         }
-//         if (e.target.id.includes('edit')) { // makes the recipe.ingredients into a table of inputs that can be edited
-//           let index = e.target.dataset.index;
-//           let recipe = this.recipes[index];
-//           console.log('editing', recipe);
-//           recipeName.value = recipe.title;
-//           description.value = recipe.description;
-//           author.value = recipe.author;
-//           category.value = recipe.category;
-//           let table = document.getElementById('recipeTable');
-//           let rowSize = recipe.ingredients.length;
-//           let newTable = createTable('recipeTable', 'recipeTable', rowSize, recipe.ingredients);
-//           parentDiv.replaceChild(newTable, table);
-//           let oldButton = document.querySelector('#submit');
-//           oldButton.remove();
-//           let newButton = createButton('submit', 'Update Recipe');
-//           form.appendChild(newButton);
-//           newButton.addEventListener('click', () => {
-//             recipe.title = recipeName.value;
-//             recipe.description = description.value;
-//             recipe.author = author.value;
-//             recipe.category = category.value;
-//             recipe.ingredients = [];
-//             recipe.instructions = [];
-//             for (let i = 0; i < rowSize; i++) {
-//               recipe.ingredients.push(document.getElementById(`ingredient${i}`).value);
-//               recipe.instructions.push(document.getElementById(`instruction${i}`).value);
-//             }
-//             this.addToLibrary();
-//           });
-//         }
-//         if (e.target.id.includes('delete')) {
-//           let index = e.target.dataset.index;
-//           this.removeRecipe(index);
-//         }
-//       });
-//     });
-//   };
-// };
-
-
-// myRecipes.addRecipe(defaultRecipe);
-// myRecipes.addToLibrary();

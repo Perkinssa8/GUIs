@@ -96,6 +96,10 @@ header{
   justify-content: flex-end;
 }
 
+#hamburger{
+  display: none;
+}
+
 #hamOptions {
   display: none;
   flex-direction: column;
@@ -108,7 +112,7 @@ header{
 }
 
 
-#hamOptions .show {
+#hamoptions.show { /*hamburger menu - visible*/
   display: block;
 }
 

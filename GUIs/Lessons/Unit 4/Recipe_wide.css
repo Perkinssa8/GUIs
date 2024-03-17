@@ -59,7 +59,9 @@ body{
 }
 
 header{
-  position: fixed;
+  position: sticky;
+  top:0;
+  left:0;
   text-align: center;
   width: 100%;
   align-items: center;
@@ -96,7 +98,11 @@ header{
   justify-content: flex-end;
 }
 
-#hamOptions {
+#hamburger{ /*removes the checkbox on button*/
+  display: none;
+}
+
+#hamOptions { /* hamburger menu - not visible*/
   display: none;
   flex-direction: column;
   align-items: center;
@@ -107,8 +113,7 @@ header{
   border-top: 1px solid var(--accent-color-2);
 }
 
-
-#hamOptions .show {
+#hamOptions.show { /*hamburger menu - visible*/
   display: block;
 }
 

@@ -33,32 +33,6 @@
                                 <input type="checkbox" id="hamburger" />
                             </nav>
                         </button>
-                        <ul id="hamOptions" class="hamOptions">
-                            <li>
-                                <label for="darkMode" class="toggle">
-                                    <input type="checkbox" class="darkMode" id="darkMode" />
-                                    Dark Mode
-                                </label>
-                            </li>
-                            <li>
-                                <label for="largeText">
-                                    <input class="text-size" name="text-size" type="radio" id="largeText" value="large" />
-                                    Large
-                                </label>
-                            </li>
-                            <li>
-                                <label for="mediumText">
-                                    <input class="text-size" name="text-size" type="radio" id="mediumText" value="medium" checked />
-                                    Medium
-                                </label>
-                            </li>
-                            <li>
-                                <label for="smallText">
-                                    <input class="text-size" name="text-size" type="radio" id="smallText" value="small" /> 
-                                    Small
-                                </label>
-                            </li>
-                        </ul>
                         <button id="notifications">Notifications</button>
                         <button id="settings">Settings</button>
                     </div>
@@ -66,12 +40,43 @@
                 
             </div>
         </header>
+        <span>
+            <ul id="hamOptions">
+                <li>
+                    <label for="darkMode" class="toggle">
+                        <input type="checkbox" class="darkMode" id="darkMode" />
+                        Dark Mode
+                    </label>
+                </li>
+                <li>
+                    <label for="largeText">
+                        <input class="text-size" name="text-size" type="radio" id="largeText" value="large" />
+                        Large
+                    </label>
+                </li>
+                <li>
+                    <label for="mediumText">
+                        <input class="text-size" name="text-size" type="radio" id="mediumText" value="medium" checked />
+                        Medium
+                    </label>
+                </li>
+                <li>
+                    <label for="smallText">
+                        <input class="text-size" name="text-size" type="radio" id="smallText" value="small" /> 
+                        Small
+                    </label>
+                </li>
+            </ul>
+        </span>
         <main id="main" style="display:block" class="page">
             <div id="titleBox">
                 <button id="Title">
                     <h1>Library</h1>
                 </button>
             </div>
+            <container id="recipeLibrary">
+            </container>
+                
         </main>
         <section id="subPage" style="display:none;" class="page">
             <div id="titleBox">
@@ -128,7 +133,7 @@
                         <button id="submit">Add instruction</button>
                     </div>
                 </fieldset>
-            <button type="button" id="library">Add Recipe to Library</button>   
+            <button type="button" id="saveToLibrary">Add Recipe to Library</button>   
             </form>
         </section>
     </body>
