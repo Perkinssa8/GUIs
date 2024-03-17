@@ -64,15 +64,12 @@ class Recipe {
         if (e.target.id.includes('edit')) { // makes the recipe.ingredients into a table of inputs that can be edited
           let index = e.target.dataset.index;
           let recipe = this.recipes[index];
-          console.log('editing', recipe);
-          recipeName.value = recipe.title;
-          description.value = recipe.description;
-          author.value = recipe.author;
-          category.value = recipe.category;
-          let table = document.getElementById('recipeTable');
-          let rowSize = recipe.ingredients.length;
-          let newTable = createTable('recipeTable', 'recipeTable', rowSize, recipe.ingredients);
-          parentDiv.replaceChild(newTable, table);
+          console.log('editing', recipe);          
+          recipeName.value = recipe.title;// sets the value of the input to the recipe title    
+          author.value = recipe.author; // sets the value of the input to the recipe author
+          category.value = recipe.category; // sets the value of the input to the recipe category
+          let table = createTable(`${e.target.id}`, `editTable`, recipe.ingredients.length, recipe);       
+          document.getElementById('ingredients').replaceChild(table, document.querySelector('ingredient'));
           let oldButton = document.querySelector('#submit');
           oldButton.remove();
           let newButton = createButton('submit', 'Update Recipe');
@@ -179,7 +176,7 @@ function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'reci
     table.classList.add(tableClass);
     let header = table.createTHead();
     let knot = header.insertRow(0);
-    let plus = createButton('add', 'Add Ingredient +');
+    let plus = createButton('finalAdd','add', 'Add Ingredient +');
     parentDiv.appendChild(plus);
     knot.innerHTML = "<th>Ingredient</th><th>Amount</th><th>Unit</th>";
     for (let i = 0; i < rowSize; i++) {
@@ -187,67 +184,82 @@ function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'reci
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
-        let directory = Object.values(obj);
-        let amount = Object.values(obj);
-        let unit = Object.values(obj);  
-        cell1.innerHTML = `<input id="ingredient${i}" value="${directory[i]}"></input>`
-        cell2.innerHTML = `<input id="amount${i}" value="${amount[i]}"></input>`
-        cell3.innerHTML = `<input id="unit${i}" value = "${unit[i]}"></input>`
+        let cell4 = row.insertCell(3);
+        let cell5 = row.insertCell(4);
+        let directory = obj[i]
+        let ingredient = directory['ingredient' + (i+1)];
+        let amount = directory.amount;
+        let unit = directory.unit;  
+        cell1.innerHTML = `<input id="amountT${i}" value="${amount}"></input>`
+        cell2.innerHTML = `<input id="unitT${i}" value = "${unit}"></input>`
+        cell3.innerHTML = `<input id="ingredientT${i}" value="${ingredient}"></input>`
+        cell4.innerHTML = `<button class="delete" id="delete${i}">&#45;</button>`;
+        cell5.innerHTML = `<button class="add" id="add${i}">&#43;</button>`;
     }
     return table;
 }
 
-function createButton(buttonClass, buttonText) {
+function createButton(buttonID, buttonClass, buttonText) {
     let button = document.createElement('button');
     button.classList.add(buttonClass);
     button.innerHTML = buttonText;
     return button;
 }
 
+function parseIngredients(input) {
+  return input.split('\n').map((line, index) => {
+    let parts = line.split(' ');
+    let amount = isNaN(parts[0]) && !parts[0].includes('/') ? undefined: parseFloat(parts.shift());
+    let unit = parts[0] === 'of' ? undefined: parts.shift();
+    parts[0] === 'of' ? parts[0].remove : parts.shift();
+    let ingredient = parts.join(' ');
+    return {['ingredient' + (index + 1)]: ingredient, amount: parseFloat(amount), unit: unit};
+  });
+}
+
 let ingredientHTML;
 let cardData
-bulk.addEventListener('change', (e) => {
+bulk.addEventListener('change', (e) => {// to add multiple ingredients
     if (e.target.checked) {
         console.log('checked');
         let ingredient = document.querySelector('.ingredient');
         ingredientHTML = ingredient;
         let tableDiv = createDivWithTextarea('recipeTable', 'recipeArea', 'ingredientArea');
-        parentDiv.replaceChild(tableDiv, ingredient);
+        parentDiv.replaceChild(tableDiv, ingredient); //replaces the input with a textarea
         // generate a table based on the amount of ingredients
         let table = document.getElementById('recipeArea');
         table.addEventListener('blur', (e) => {
             console.log('blur event', e.target);
-            let lines = e.target.value.split('\n');
+            let lines = parseIngredients(e.target.value);
             console.log(lines);
-            for (let i = 0; i < lines.length; i++) {
-                obj['Ingredient'+ (i+1)] = lines[i];
-            };
-            console.log(obj);
-            let rowSize = Object.keys(obj).length;
+            let rowSize = Object.keys(lines).length;
             console.log('rowSize', rowSize)
-            let newTable = createTable('recipeTable', 'recipeTable', rowSize, obj);
+            let newTable = createTable('recipeTable', 'recipeTable', rowSize, lines);
             parentDiv.replaceChild(newTable, tableDiv);
             let add = document.querySelector('.add');
-            add.addEventListener('click', () => {
-                let table = document.getElementById('recipeTable');
-                let row = table.insertRow(-1);
-                let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
-                let cell3 = row.insertCell(2);
-                let rowSize = table.rows.length;
-                cell1.innerHTML = `<input id="ingredient${rowSize}" value=""></input>`;
-                cell2.innerHTML = `<input id="amount${rowSize}" value=""></input>`;
-                cell3.innerHTML = `<input id="unit${rowSize}" value=""></input>`;
+            add.addEventListener('click', (e) => {
+              let rowIndex = e.target.id.split('add')[1];
+              let table = document.getElementById('recipeTable');
+              let row = table.insertRow(rowIndex);
+              let cell1 = row.insertCell(0);
+              let cell2 = row.insertCell(1);
+              let cell3 = row.insertCell(2);
+              let cell4 = row.insertCell(3);
+              let cell5 = row.insertCell(4);
+              let rowSize = table.rows.length;
+              cell1.innerHTML = `<input id="ingredient${rowSize}" value=""></input>`;
+              cell2.innerHTML = `<input id="amount${rowSize}" value=""></input>`;
+              cell3.innerHTML = `<input id="unit${rowSize}" value=""></input>`;
+              cell4.innerHTML = `<button class="delete" id="delete${rowSize}">&#45;</button>`;
+              cell5.innerHTML = `<button class="add" id="add${rowSize}">&#43;</button>`;
             });
-            let oldButton = document.querySelector('#submit');
-            oldButton.remove();
         });
     } else {
         console.log('unchecked')
         let tableDiv = document.querySelector('.recipeTable');
         parentDiv.replaceChild(ingredientHTML, tableDiv);
-        // let oldButton = document.querySelector('.add');
-        // oldButton.remove();
+        let oldButton = document.querySelector('.add');
+        oldButton.remove();
     }
 });
 
