@@ -32,6 +32,9 @@ class Recipe {
 
   removeRecipe(index){
     this.recipes.splice(index, 1);
+    document.getElementById('recipeLibrary').innerHTML = '';
+    this.addToLibrary();
+    
   }
 
   getRecipe(index){
@@ -70,32 +73,45 @@ class Recipe {
           console.log(whichPage.checked);
           bulk.checked = true;
           bulk.dispatchEvent(new Event('change'));
+          multipleInstructions.checked = true;
+          multipleInstructions.dispatchEvent(new Event('change'));
+          //corresponds to the recipe object
           let title = this.recipes[index].title;
           let ingredients = this.recipes[index].ingredients;
           let instructions = this.recipes[index].instructions;
           let author = this.recipes[index].author;
+          let category = this.recipes[index].category;
+        
+
           let recipeArea = document.getElementById('recipeArea');
-          
+          let instructionArea = document.getElementById('instructionArea');
+
+          // corresponds to the form
+          recipeName.value = title;// sets the value of the input to the recipe title  
+          recipeAuthor.value = author === undefined ? 'no author given': recipe.author; // sets the value of the input to the recipe author
+          recipeCategory.value = category === undefined ? "Lunch" : recipe.category; // sets the value of the input to the recipe category  
+          console.log('category setting', recipeCategory.value);
           recipeArea.value = ingredients.join('\n');
-          recipeName.value = recipe.title;// sets the value of the input to the recipe title    
-          recipeAuthor.value = recipe.author === undefined ? 'no author given': recipe.author; // sets the value of the input to the recipe author
-          category.value = recipe.category; // sets the value of the input to the recipe category
-          let table = createTable('ingredient', `${e.target.id}`, recipe.ingredients.length, recipe);       
-          document.getElementById('ingredients').replaceChild(table, document.querySelector('.ingredient'));
+          instructionArea.value = instructions.join('\n');
+          [document.getElementById('instructionArea'), document.getElementById("recipeArea")].forEach((el) => {el.dispatchEvent(new Event('blur'))});
           let newButton = createButton('submit', 'UpdateRecipe', 'Update Recipe');
           form.appendChild(newButton);
+          let newRecipe = {};
+
+          // update transfers forms to the recipe object
           newButton.addEventListener('click', () => {
-            recipe.title = recipeName.value;
-            recipe.description = description.value;
-            recipe.author = author.value;
-            recipe.category = category.value;
-            recipe.ingredients = [];
-            recipe.instructions = [];
-            for (let i = 0; i < rowSize; i++) {
-              recipe.ingredients.push(document.getElementById(`ingredient${i}`).value);
-              recipe.instructions.push(document.getElementById(`instruction${i}`).value);
-            }
+            saveObj();
+            // title = recipeName.value;
+            // author = recipeAuthor.value;
+            // category = recipeCategory.value;
+            // ingredients = recipeArea.value.split('\n');
+            // instructions = instructionArea.value.split('\n');
+            console.log('updated recipe', recipe);
+            newRecipe = this.recipes[index];
+            this.recipes.splice(index,0, newRecipe);
             this.addToLibrary();
+            whichPage.checked = false;
+            whichPage.dispatchEvent(new Event('change'));
           });
         }
         if (e.target.id.includes('delete')) {
@@ -144,6 +160,7 @@ hamburger.addEventListener('change', (e) => {
       console.log('unchecked', e.target);
   };
 });
+
 darkMode.addEventListener('change', (e) => {
     // if dark mode is enabled, add the class to the body
     if (e.target.checked) {
@@ -170,6 +187,21 @@ darkMode.addEventListener('change', (e) => {
 });
 
 
+function getTableData(tableId) {
+  let table = document.getElementById(tableId);
+  let parent = table.parentNode;
+  let data = [];
+
+  for (let i = 0, row; row = table.rows[i]; i++) {
+    let rowData = '';
+    for (let j = 0, cell; cell = row.cells[j]; j++) {
+      rowData += cell.textContent + ' ';
+    }
+    data.push(rowData.trim());
+  }
+
+  return data;
+}
 function createDivWithTextarea(divClass, textareaId, textareaName) {
     let div = document.createElement('div');
     div.classList.add(divClass);
@@ -182,34 +214,6 @@ function createDivWithTextarea(divClass, textareaId, textareaName) {
     return div;
 }
 
-function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'recipeTable', rowSize, obj
-    let table = document.createElement('table');
-    table.id = tableId;
-    table.classList.add(tableClass);
-    let header = table.createTHead();
-    let knot = header.insertRow(0);
-    let plus = createButton('finalAdd','add', 'Add Ingredient +');
-    parentDiv.appendChild(plus);
-    knot.innerHTML = "<th>Ingredient</th><th>Amount</th><th>Unit</th>";
-    for (let i = 0; i < rowSize; i++) {
-        let row= table.insertRow(-1);
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        let cell4 = row.insertCell(3);
-        let cell5 = row.insertCell(4);
-        let directory = obj[i]
-        let ingredient = directory['ingredient' + (i+1)];
-        let amount = directory.amount;
-        let unit = directory.unit;  
-        cell1.innerHTML = `<input class="referenceCell" id="amountT${i}" value="${amount}"></input>`
-        cell2.innerHTML = `<input id="unitT${i}" value = "${unit}"></input>`
-        cell3.innerHTML = `<input id="ingredientT${i}" value="${ingredient}"></input>`
-        cell4.innerHTML = `<button type="button" class="deleteB" id="delete${i}">&#45;</button>`;
-        cell5.innerHTML = `<button type="button" class="add" id="add${i}">&#43;</button>`;
-    }
-    return table;
-}
 
 function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'recipeTable', rowSize, obj
     let table = document.createElement('table');
@@ -217,9 +221,13 @@ function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'reci
     table.classList.add(tableClass);
     let header = table.createTHead();
     let knot = header.insertRow(0);
-    let plus = createButton('finalAdd','add', 'Add Ingredient +');
-    parentDiv.appendChild(plus);
-    knot.innerHTML = "<th>Amount</th><th>Unit</th><th>Ingredient</th>";
+    if (tableId === 'recipeTable') {
+      let plus = createButton('finalAdd','add', 'Add Ingredient +');
+      parentDiv.appendChild(plus);
+      knot.innerHTML = "<th>Amount</th><th>Unit</th><th>Ingredient</th>";
+    } else {
+        knot.innerHTML = "<th>Instruction</th>";
+    }
     for (let i = 0; i < rowSize; i++) {
         let row= table.insertRow(-1);
 
@@ -240,8 +248,15 @@ function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'reci
           cell5.innerHTML = `<button type="button" class="add" id="add${i}">&#43;</button>`;
         } else {
           let cell1 = row.insertCell(0);
-          let directory = obj[i]
-          cell1.innerHTML = `<input class="referenceCell" id="instruction${i}" value="${directory}"></input>`   
+          let cell2 = row.insertCell(1);
+          let cell3 = row.insertCell(2);
+          let dict = obj[i] ;
+          cell1.innerHTML = `<input class="referenceCell" id="instruction${i}" value="${dict}"></input>`           
+          cell2.innerHTML = `<button type="button" class="deleteB" id="delete${i}">&#45;</button>`;
+          cell3.innerHTML = `<button type="button" class="add" id="add${i}">&#43;</button>`;
+          
+          
+          
           }
         }
     return table;
@@ -250,6 +265,7 @@ function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'reci
 function createButton(buttonID, buttonClass, buttonText) {
     let button = document.createElement('button');
     button.id = buttonID;
+    button.type = 'button';
     button.classList.add(buttonClass);
     button.innerHTML = buttonText;
     return button;
@@ -281,7 +297,8 @@ bulk.addEventListener('change', (e) => {// to add multiple ingredients
       console.log('checked');
       let ingredient = document.querySelector('#ingredient');
       ingredientHTML = ingredient;
-      let tableDiv = createDivWithTextarea('ingredient', 'recipeArea', 'ingredientArea'); //changed the class here
+      let tableDiv = createDivWithTextarea('recipeTable', 'recipeArea', 'ingredientArea'); //class must remain recipeTable here
+      cardData = tableDiv;
       parentDiv.replaceChild(tableDiv, ingredient); //replaces the input with a textarea
       // generate a table based on the amount of ingredients
       let table = document.getElementById('recipeArea');
@@ -310,8 +327,13 @@ bulk.addEventListener('change', (e) => {// to add multiple ingredients
           deleteButtons.forEach((el) => {
             el.removeEventListener('click', deleteListener);
             el.addEventListener('click', deleteListener);
+          });
+          // also save the table data as one {ingredients: [array of ingredients], instructions: [array of instructions]}
+          let recipeTable = document.getElementById('recipeTable');
+          let rawData = getTableData('recipeTable');
+          console.log('table data:', rawData);
+    
           });            
-      })
   
       // Variables declared to remove and add event listeners -  only took me 4 hours to figure out this part alone
       let addListener = (e) => {
@@ -361,10 +383,10 @@ let multipleInstructions = document.querySelector('#multipleInstructions');
 multipleInstructions.addEventListener('change', (e) => {
   if (e.target.checked) {
     console.log('multiple instructions checked');
-    let instruction = document.querySelector('.instruction');
-    let createTextArea = createDivWithTextarea('bulkInstructions', 'instructionArea', 'instructionArea');
+    let instruction = document.querySelector('.instruction'); 
+    let createTextArea = createDivWithTextarea('instructionTable', 'instructionArea', 'instructionArea');
     instructionHTML = instruction;
-    let parentDiv = instruction.parentNode;
+    let parentDiv = instruction.parentNode; 
     parentDiv.replaceChild(createTextArea, instruction);
     let table = document.getElementById('instructionArea');
 
@@ -374,15 +396,60 @@ multipleInstructions.addEventListener('change', (e) => {
       let lines = e.target.value.split('\n');
       let rowSize = lines.length;
       let newTable = createTable('instructionTable', 'instructionTable', rowSize, lines);
+      parentDiv.replaceChild(newTable, createTextArea);
+
+      let addButtons = document.querySelectorAll('.add');
+      let deleteButtons = document.querySelectorAll('.deleteB');
+
+      addButtons.forEach((el) => {
+        el.removeEventListener('click', addListener);
+        el.addEventListener('click', addListener);
+      });
+
+      deleteButtons.forEach((el) => {
+        el.removeEventListener('click', deleteListener);
+        el.addEventListener('click', deleteListener);
+      });
     })
 
+    // Variables declared for removal and addition of event listeners
+    let addListener = (e) => {
+      let table = document.getElementById('instructionTable');
+      let rowIndex = e.target.parentNode.parentNode.rowIndex;
+      console.log('rowIndex', rowIndex);
+      let row = table.insertRow(rowIndex + 1);
+      let cell1 = row.insertCell(0);
+      let cell2 = row.insertCell(1);
+      let cell3 = row.insertCell(2);
+      let rowSize = rowIndex;
+      cell1.innerHTML = `<input id="instruction${rowSize}" value=""></input>`;
+      cell2.innerHTML = `<button type="button" class="deleteB" id="delete${rowSize}">&#45;</button>`;
+      cell3.innerHTML = `<button type="button" class="add" id="add${rowSize}">&#43;</button>`;
+      cell2.addEventListener('click', deleteListener);
+      cell3.addEventListener('click', addListener);
+    }
+
+    let deleteListener = (e) => {
+      let table = document.getElementById('instructionTable');
+      let rowIndex = e.target.parentNode.parentNode.rowIndex;
+      console.log('rowIndex', rowIndex);
+      table.deleteRow(rowIndex);
+    }
+
+
+  }else{
+    console.log('unchecked')
+    let tableDiv = document.querySelector('.instructionTable'); // class specifies the textarea
+    let parentDiv = tableDiv.parentNode;
+    parentDiv.replaceChild(instructionHTML, tableDiv);
+    let oldButton = document.querySelector('.add');
+    oldButton.remove();
   }
 });
 
 let instruction = document.querySelector('#instruction');
 instruction.addEventListener('blur', (e) => {
   let lines = e.target.value.split('\n');
-
 });
 
 // [...document.querySelectorAll('.referenceCell')].forEach((el) => {
@@ -495,6 +562,7 @@ let defaultRecipe ={
     ]
 };
 
+console.log("This must be repeating!!!!!!")
 myRecipes.addRecipe(defaultRecipe);
 console.log(myRecipes.getRecipe(0));
 myRecipes.addToLibrary();
