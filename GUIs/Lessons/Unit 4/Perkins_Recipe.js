@@ -8,7 +8,7 @@ const submit = document.getElementById('submit');
 let subpage = document.querySelector('#subpage');
 let mainpage = document.querySelector('#main');
 let bulk = document.querySelector('#bulk');
-let form = document.getElementById('recipeForm');
+const form = document.getElementById('recipeForm');
 let information = document.querySelector('#information');
 let author = document.querySelector('#recipeAuthor');
 let description = document.querySelector('#recipeDescription');
@@ -189,19 +189,38 @@ darkMode.addEventListener('change', (e) => {
 
 function getTableData(tableId) {
   let table = document.getElementById(tableId);
-  let parent = table.parentNode;
   let data = [];
 
-  for (let i = 0, row; row = table.rows[i]; i++) {
+  for (let i = 1, row; row = table.rows[i]; i++) {
     let rowData = '';
-    for (let j = 0, cell; cell = row.cells[j]; j++) {
-      rowData += cell.textContent + ' ';
+    for (let j = 0; j < 3; j++) {
+      let cell = row.cells[j];
+      let inputElement = cell.querySelector('input');
+        if (inputElement) {
+            let words = inputElement.value;
+            console.log(words);
+            rowData += words + ' ';
+        }
     }
     data.push(rowData.trim());
   }
 
   return data;
 }
+
+function getRowData(tableId) {
+  let table = document.getElementById(tableId);
+  let parent = table.parentNode;
+  let data = [];
+
+  for (let i = 0, row; row = table.rows[i]; i++) {
+    let rowData = '';
+    data.push(rowData.trim());
+  }
+
+  return data;
+}
+
 function createDivWithTextarea(divClass, textareaId, textareaName) {
     let div = document.createElement('div');
     div.classList.add(divClass);
@@ -329,9 +348,8 @@ bulk.addEventListener('change', (e) => {// to add multiple ingredients
             el.addEventListener('click', deleteListener);
           });
           // also save the table data as one {ingredients: [array of ingredients], instructions: [array of instructions]}
-          let recipeTable = document.getElementById('recipeTable');
           let rawData = getTableData('recipeTable');
-          console.log('table data:', rawData);
+          obj.ingredients = rawData;
     
           });            
   
@@ -410,6 +428,10 @@ multipleInstructions.addEventListener('change', (e) => {
         el.removeEventListener('click', deleteListener);
         el.addEventListener('click', deleteListener);
       });
+
+      let rawDatatwo = getTableData('instructionTable');
+          obj.instructions = rawDatatwo;
+        
     })
 
     // Variables declared for removal and addition of event listeners
@@ -462,6 +484,7 @@ instruction.addEventListener('blur', (e) => {
 
 saveToLibrary.addEventListener('click', () => {
   myRecipes.addRecipe(obj);
+  myRecipes.addToLibrary();
 });
 
   
