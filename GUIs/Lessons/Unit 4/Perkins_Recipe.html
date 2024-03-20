@@ -14,7 +14,7 @@
             <div id="headerBar">
                 <div class="headerLeft">
                     <div>
-                        <button id="home">Home</button>
+                        <button id="import">Import</button>
                         <button for="whichPage" id="navigation">Library
                             <input type="checkbox" style="display:none;" id="whichPage"></input>
                         </button>
@@ -22,7 +22,6 @@
                 </div>
                 <div class="headerCenter">
                     <div>
-                        <input type="search" id="search" value="search a recipe"></input>
                     </div>
                 </div>
                 <div class="headerRight">
@@ -33,8 +32,6 @@
                                 <input type="checkbox" id="hamburger" />
                             </nav>
                         </button>
-                        <button id="notifications">Notifications</button>
-                        <button id="settings">Settings</button>
                     </div>
                 </div>
                 
@@ -103,7 +100,7 @@
                     <legend>Ingredients</legend>
                     <input type="checkbox" class='multiple' id="bulk">Add multiple ingredients</input>
                     <div id="ingredient" class="ingredient">
-                        <div class="insertable">
+                        <div class="insertable" id="insertable0">
                             <div>
                                 <label for="ingredientName">Name:</label>
                                 <input type="text" id="ingredientName" name="ingredientName" required />
@@ -117,12 +114,13 @@
                                 <input type="text" id="ingredientUnit" name="ingredientUnit" required />
                             </div>
                         </div>
-                        <button id="submit">Add ingredient</button>
+                        
                     </div>
+                    <button type = "button" id="newIngredient">Add ingredient</button>
                 </fieldset>
                 <fieldset id="instructions">
                     <legend>Instructions</legend>
-                    <input type="checkbox" class='multiple' id="multipleInstructions">Add multiple instructions</input>
+                    <input type="checkbox" class='multiple' id="multipleInstructions">Add multiple instructions: currently this is the only option</input>
                     <div id="instruction">
                         <div class="instruction">
                             <label for="instruction">Instruction: </label>

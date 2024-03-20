@@ -5,6 +5,8 @@ const hamOptions = document.querySelector('#hamOptions');
 const recipe = document.querySelector('#recipeForm');
 const recipeName = document.getElementById('recipeName');
 const submit = document.getElementById('submit');
+const newIngredient = document.getElementById('newIngredient');
+const newInstruction = document.getElementById('newInstruction');
 let subpage = document.querySelector('#subpage');
 let mainpage = document.querySelector('#main');
 let bulk = document.querySelector('#bulk');
@@ -14,11 +16,14 @@ let author = document.querySelector('#recipeAuthor');
 let description = document.querySelector('#recipeDescription');
 let category = document.querySelector('#recipeCategory');
 let inputs = form.querySelectorAll('input, textarea, select');
+let singleInputs = document.getElementById('ingredient').querySelectorAll('input');
+let singleInstruct = document.getElementById('instruction').querySelectorAll('input');
 let parentDiv = document.querySelector('#ingredients');
 let table = document.getElementById('recipeTable');
 let obj= {};
-let tableRow = [];
-let saveToLibrary = document.getElementById('saveToLibrary')
+let ingredientList = [];
+let instructionList = [];
+let saveToLibrary = document.getElementById('saveToLibrary');
 
 
 class Recipe {
@@ -37,6 +42,12 @@ class Recipe {
     
   }
 
+  updateRecipe(index, newRecipe){
+    this.recipes[index] = newRecipe;
+    console.log('new Recipe might be: ', this.getRecipe(index));
+    this.addToLibrary();
+  }
+
   getRecipe(index){
     return this.recipes[index];
   }
@@ -45,6 +56,7 @@ class Recipe {
     let library = document.getElementById('recipeLibrary');
     library.innerHTML = '';
     this.recipes.forEach((recipe, index) => {
+      console.log('this is index', index);
       let card = document.createElement('button');
       card.classList.add('recipeCard');
       card.innerHTML = `
@@ -56,7 +68,6 @@ class Recipe {
       library.appendChild(card);
     });
     let recipeFiles = document.querySelectorAll('.recipeFiles');
-    console.log('these are recipeFiles:', recipeFiles);
     [...recipeFiles].forEach((el) => {
       el.addEventListener('click', (e) => {
         if (e.target.id.includes('recipe')) {
@@ -75,7 +86,7 @@ class Recipe {
           bulk.dispatchEvent(new Event('change'));
           multipleInstructions.checked = true;
           multipleInstructions.dispatchEvent(new Event('change'));
-          //corresponds to the recipe object
+          //corresponds to the recipe object - VARIABLES
           let title = this.recipes[index].title;
           let ingredients = this.recipes[index].ingredients;
           let instructions = this.recipes[index].instructions;
@@ -88,32 +99,30 @@ class Recipe {
 
           // corresponds to the form
           recipeName.value = title;// sets the value of the input to the recipe title  
-          recipeAuthor.value = author === undefined ? 'no author given': recipe.author; // sets the value of the input to the recipe author
-          recipeCategory.value = category === undefined ? "Lunch" : recipe.category; // sets the value of the input to the recipe category  
+          recipeAuthor.value = author === undefined ? 'no author given': author; // sets the value of the input to the recipe author
+          recipeCategory.value = category === undefined ? "Lunch" : category; // sets the value of the input to the recipe category  
           console.log('category setting', recipeCategory.value);
-          recipeArea.value = ingredients.join('\n');
-          instructionArea.value = instructions.join('\n');
+          recipeArea.value = ingredients.join(',');
+          instructionArea.value = instructions.join(',');
           [document.getElementById('instructionArea'), document.getElementById("recipeArea")].forEach((el) => {el.dispatchEvent(new Event('blur'))});
           let newButton = createButton('submit', 'UpdateRecipe', 'Update Recipe');
           form.appendChild(newButton);
-          let newRecipe = {};
+
 
           // update transfers forms to the recipe object
-          newButton.addEventListener('click', () => {
-            saveObj();
-            // title = recipeName.value;
-            // author = recipeAuthor.value;
-            // category = recipeCategory.value;
-            // ingredients = recipeArea.value.split('\n');
-            // instructions = instructionArea.value.split('\n');
-            console.log('updated recipe', recipe);
-            newRecipe = this.recipes[index];
-            this.recipes.splice(index,0, newRecipe);
-            this.addToLibrary();
+          newButton.addEventListener('click', (e) => {
+            let newRecipe = {};
+            console.log('this might be the index', index);
+            console.log('old recipe', myRecipes.getRecipe(index));
+            newRecipe = saveObj();
+            console.log('new recipe', newRecipe); // correct to here
+            myRecipes.updateRecipe(index, newRecipe);
             whichPage.checked = false;
             whichPage.dispatchEvent(new Event('change'));
           });
         }
+  
+
         if (e.target.id.includes('delete')) {
           let index = e.target.dataset.index;
           this.removeRecipe(index);
@@ -123,6 +132,7 @@ class Recipe {
   };
 };
 let myRecipes = new Recipe();
+
 
 
 function checkButton(buttonID, checkboxID) {
@@ -180,11 +190,66 @@ darkMode.addEventListener('change', (e) => {
 });
 
 [...inputs].forEach((el) => {
-    el.addEventListener('blur', (e) => {
-        obj[e.target.id] = e.target.value;
-        console.log('saved:', e.target.value);
-    });
+  el.addEventListener('blur', (e) => {
+    obj[e.target.id] = e.target.value;
+    console.log('saved:', e.target.value);
+  });
 });
+
+
+// Eventlistener for Add ingredient button
+newIngredient.addEventListener('click', () => {
+  let parentNode = document.getElementById('ingredient')
+  let counter = parentNode.childElementCount
+  console.log('counter', counter);
+  let newIngredientDiv = createIngredientDiv(counter);
+  parentNode.appendChild(newIngredientDiv);
+});
+
+function createIngredientDiv(counter) { 
+  let htmlWrapper = `
+    <div>
+      <label for="ingredientName${counter}">Name:</label>
+      <input type="text" id="ingredientName${counter}" name="ingredientName${counter}" required />
+    </div>
+    <div>
+      <label for="ingredientAmount${counter}">Amount:</label>
+      <input type="text" id="ingredientAmount${counter}" name="ingredientAmount${counter}" required />
+    </div>
+    <div>
+      <label for="ingredientUnit${counter}">Unit:</label>
+      <input type="text" id="ingredientUnit${counter}" name="ingredientUnit${counter}" required />
+    </div>`
+  let div = document.createElement('div');
+  div.innerHTML = htmlWrapper;
+  div.classList.add('insertable');
+  div.id = `insertable${counter}`;
+  return div;
+}
+
+let parentNode = document.getElementById('ingredient');
+parentNode.querySelectorAll("input").forEach((el) => {el.addEventListener('focus', () => {
+  ingredientList= [];
+  let counter = parentNode.childElementCount;
+  console.log('counter', counter);
+  for (let i = 0; i < counter; i++) { // Changed counter+1 to counter
+    let element = document.querySelector(`#insertable${i}`);
+    if (element) {
+      let inputRows = element.querySelectorAll("input");
+      let group = []; // Create a new array for this group of inputs
+      inputRows.forEach((el) => {group.push(el.value)}); // Push the input values into the group array
+      ingredientList.push(group.join('')); // Join the group array into a string and push it into the ingredientList array
+      console.log(ingredientList);
+    } else {
+      console.log(`Element with id insertable${i} not found`);
+    }
+  }
+});
+});
+
+
+
+    
 
 
 function getTableData(tableId) {
@@ -198,7 +263,6 @@ function getTableData(tableId) {
       let inputElement = cell.querySelector('input');
         if (inputElement) {
             let words = inputElement.value;
-            console.log(words);
             rowData += words + ' ';
         }
     }
@@ -208,17 +272,40 @@ function getTableData(tableId) {
   return data;
 }
 
-function getRowData(tableId) {
-  let table = document.getElementById(tableId);
-  let parent = table.parentNode;
-  let data = [];
+// function getRowData(tableId) {
+//   let table = document.getElementById(tableId);
+//   let parent = table.parentNode;
+//   let data = [];
 
-  for (let i = 0, row; row = table.rows[i]; i++) {
-    let rowData = '';
-    data.push(rowData.trim());
+//   for (let i = 0, row; row = table.rows[i]; i++) {
+//     let rowData = '';
+//     data.push(rowData.trim());
+//   }
+
+//   return data;
+// }
+
+function saveObj() { // triggers the blur event listener to save the data to obj
+  let information = document.getElementById('information');
+  let infoFields = information.querySelectorAll('input, select');
+  [...infoFields].forEach((el) => {
+    obj[el.id] = el.value;
+  });
+  
+  //if bulk is checked, then get ingredients this way
+  if (bulk.checked) {
+    obj.ingredients = getTableData('recipeTable');
+  }if (multipleInstructions.checked) {
+    obj.instructions = getTableData('instructionTable');
+  } else {
+    document.querySelector('#selectable0').dispatchEvent(new Event('focus'));
+    obj.ingredients = ingredientList;
+    obj.instructions = instructionList;
   }
-
-  return data;
+  //if single inputs were used, combine them to make obj.ingredients and obj.instructions
+  let refinedObj = {title: obj.recipeName, author: obj.recipeAuthor, category: obj.recipeCategory , ingredients: obj.ingredients, instructions: obj.instructions};
+  console.log('obj from save function', refinedObj);
+  return refinedObj;
 }
 
 function createDivWithTextarea(divClass, textareaId, textareaName) {
@@ -241,8 +328,8 @@ function createTable(tableId, tableClass, rowSize, obj) { //'recipeTable', 'reci
     let header = table.createTHead();
     let knot = header.insertRow(0);
     if (tableId === 'recipeTable') {
-      let plus = createButton('finalAdd','add', 'Add Ingredient +');
-      parentDiv.appendChild(plus);
+      // let plus = createButton('finalAdd','add', 'Add Ingredient +');
+      // parentDiv.appendChild(plus);
       knot.innerHTML = "<th>Amount</th><th>Unit</th><th>Ingredient</th>";
     } else {
         knot.innerHTML = "<th>Instruction</th>";
@@ -474,20 +561,35 @@ instruction.addEventListener('blur', (e) => {
   let lines = e.target.value.split('\n');
 });
 
-// [...document.querySelectorAll('.referenceCell')].forEach((el) => {
-//   el.addEventListener('focus', (e) => {
-//     console.log('focused', e.target);
-//     let referenceIndex = e.target.parentNode.rowIndex;
-//     console.log('referenceIndex', referenceIndex);
-//   });
-// });
-
 saveToLibrary.addEventListener('click', () => {
-  myRecipes.addRecipe(obj);
+  let refinedObj = saveObj();
+  myRecipes.addRecipe(refinedObj);
   myRecipes.addToLibrary();
+  console.log('added to library');
+  document.querySelectorAll('input').forEach((el) => {el.value = ''});	
+  document.querySelectorAll('textarea').forEach((el) => {el.value = ''});
+  bulk.checked = false;
+  bulk.dispatchEvent(new Event('change'));
+  multipleInstructions.checked = false;
+  multipleInstructions.dispatchEvent(new Event('change'));
 });
 
-  
+let importRecipe = document.getElementById('import');
+importRecipe.addEventListener('click', () => {
+  let box = document.createElement('input');
+  box.type = 'text';
+  box.id = 'importBox';
+  let button = createButton('importButton', 'importButton', 'Import');
+  let parent = document.getElementById('import').parentElement;
+  parent.appendChild(box);
+  parent.appendChild(button);
+  button.addEventListener('click', () => {
+    let input = document.getElementById('importBox').value;
+    console.log('input', input);
+    myRecipes.addRecipe(input);
+    myRecipes.addToLibrary();
+  });
+});
 
 function writeRecipeToFile(recipe) {
     // taking from
@@ -585,7 +687,6 @@ let defaultRecipe ={
     ]
 };
 
-console.log("This must be repeating!!!!!!")
 myRecipes.addRecipe(defaultRecipe);
 console.log(myRecipes.getRecipe(0));
 myRecipes.addToLibrary();
