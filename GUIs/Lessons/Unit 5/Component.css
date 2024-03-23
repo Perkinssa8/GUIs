@@ -7,7 +7,7 @@
 
 
 /* NavBar Styline */
-#navBar {
+.section {
     background-color: #333;
     overflow: hidden;
 }
@@ -17,7 +17,7 @@
     overflow: hidden;
 }
 
-#navBarComponent{
+.example {
     background-color: #333;
     overflow: hidden;
 }
@@ -40,15 +40,15 @@
     overflow: hidden;
 }
 
-#navDrawerExample {
+/* #navDrawerExample {
     background-color: #333;
     overflow: hidden;
-}
-
+} */
+/* 
 #navDrawerComponent{
     background-color: #333;
     overflow: hidden;
-}
+} */
 
 #navDrawerButton {
     padding: 16px;
