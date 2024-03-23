@@ -1,0 +1,91 @@
+:root{
+    --primary-color: 
+}
+
+
+
+
+
+/* NavBar Styline */
+#navBar {
+    background-color: #333;
+    overflow: hidden;
+}
+
+#navBarExample {
+    background-color: #333;
+    overflow: hidden;
+}
+
+#navBarComponent{
+    background-color: #333;
+    overflow: hidden;
+}
+
+#navBarButton {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:blueviolet;
+    color:white;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+
+/* Navigation Drawer Styling */
+#navDrawer {
+    background-color: #333;
+    overflow: hidden;
+}
+
+#navDrawerExample {
+    background-color: #333;
+    overflow: hidden;
+}
+
+#navDrawerComponent{
+    background-color: #333;
+    overflow: hidden;
+}
+
+#navDrawerButton {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:blueviolet;
+    color:white;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+
+/* Button Library Styling */
+#button {
+    background-color: #333;
+    overflow: hidden;
+}
+
+#buttonExample {
+    background-color: #333;
+    overflow: hidden;
+}   
+
+#buttonComponent{
+    background-color: #333;
+    overflow: hidden;
+}
+
+#buttonButton {
+    padding: 16px 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color:blueviolet;
+    color:white;
+    border-radius: 50%;
+    box-shadow: none;
+}
