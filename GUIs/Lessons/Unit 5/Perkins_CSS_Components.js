@@ -51,7 +51,8 @@ let isNavOpen = false;
 const drawer = document.getElementById("drawer");
 
 document.getElementById("menu").addEventListener("click", () => {
-
+    console.log("menu clicked");
+});
 
 
 
