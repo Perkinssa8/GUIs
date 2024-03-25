@@ -1,15 +1,78 @@
+*{
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 16px;
+    font-family: Noto-Sans-JP, Helvetica, serif, sans-serif;
+    scroll-behavior: smooth;
+}
+
 :root{
-    --primary-color: 
+    --primary-color:#eec98b;
+    --secondary-color:#24242b;
+    --tertiary-color:#26262e;
+    --quaternary-color:#25252d;
+    --quinary-color:#2c2b2f;
+    --background-color: #2d2c31;
+    --white-color: #fff;
 }
 
 
+header{
+    position: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--secondary-color);
+}
+
+.navBar{
+    position:sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    margin:auto;
+}
+
+body{
+    display:flex;
+    flex-direction:column;
+    height: 100%;
+    width: 100%;
+    background-color: var(--background-color);
+    color: var(--white-color);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    margin: 16px 0px 72px 0px;
+    padding-top: 80px;
+}
+
+
+/*canvas practice*/
+#canvas{
+    background-color: var(--primary-color);
+    
+}
 
 
 
 /* NavBar Styline */
 .section {
     background-color: #333;
-    overflow: hidden;
+    overflow: visible;
 }
 
 #navBarExample {
@@ -19,7 +82,8 @@
 
 .example {
     background-color: #333;
-    overflow: hidden;
+    overflow: auto;
+    
 }
 
 #navBarButton {
@@ -27,7 +91,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:blueviolet;
+    background-color:transparent;
     color:white;
     border-radius: 50%;
     box-shadow: none;
@@ -37,7 +101,7 @@
 /* Navigation Drawer Styling */
 #navDrawer {
     background-color: #333;
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* #navDrawerExample {
@@ -55,12 +119,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:blueviolet;
+    background-color:var(--background-color);
     color:white;
-    border-radius: 50%;
+    border-radius: 100%;
     box-shadow: none;
 }
 
+.drawer{
+    position: fixed;
+    background-color: #333;
+    left: -300px;
+    bottom: 0;
+    width: 300px;
+    overflow: visible;
+}
+
+.drawer > a{
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+}
 
 /* Button Library Styling */
 #button {
@@ -83,9 +161,71 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    background-color:blueviolet;
+    color:white;
+    border-end-end-radius: auto, 50%;
+    box-shadow: none;
+}
+
+.button{
+    cursor: finger;
+    transition: bacground-color .4s ease-in-out, box-shadow .3s ease;
+}
+
+.button:hover{
+    background-color: #333;
+    color: blueviolet;
+}
+
+.button[data-pressed="true"]{
+    box-shadow: none;
+}	
+
+#action{
+    background-color: #333;
+    overflow: hidden;
+}
+
+#fabExample{
+    background-color: var(--primary-color);
+    overflow: hidden;
+}
+
+#fabButton{
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color:blueviolet;
     color:white;
     border-radius: 50%;
     box-shadow: none;
+}
+
+.imgcontainer{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+@keyframes loading-animation{
+    0% {
+        transform: rotateZ(0deg);
+    }
+    50% {
+        transform: rotateZ(180deg);
+        background-color: var(--secondary-color)
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+.loader{
+    padding: 64px;
+    background-color: var(--background-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,.14), 0 1px 2px rgba(0,0,0,.28), 0 2px 1px -1px rgba(0,0,0,.05);
+    animation: loading-animation 3s linear infinite;
 }
