@@ -13,6 +13,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>        
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Protest+Riot&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <!-- new font for "website logo" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -22,7 +26,7 @@
         <h1>CSS Library</h1>
     </header>
     <nav class="navBar" id="principalNav">Create a Website with
-        <span id="websiteLogo" style="display: inline">tOOOl Kit</span>
+        <span id="websiteLogo" class=".honk-tool" >tOOOl Kit</span>
     </nav>
 
 
@@ -40,12 +44,12 @@
             <h2>Nav Bar</h2>
             <div id="navBarExample">
                 <h3>Example</h3>
-                <div id="navBarComponent" class="example">
-                    <nav class="navBar">
-                        <button id="navBarButton" class="button">
+                <div id="navBarComponent" class="button">
+                    <nav class="navBar" id="navBarTwo">
+                        <button id="navBarButton" class="menu">
                             <span class="material-symbols-outlined">menu</span>
                         </button>
-                        <span id="navBarTitle">Add your title here</span>
+                        <span id="navBarTitle">Your title</span>
                         <article class="container">
                             <div class="drawer-item"></div>
                         </article>
@@ -62,7 +66,7 @@
                         <span class="material-symbols-outlined">menu</span>
                     </button>
                 </div>
-                <nav id="navBarLinks" class="drawer">
+                <nav id="navBarLinks" > <!-- class = "drawer"-->
                     <a href="#"><span class="material-symbols-outlined">Home</span>Link 1</a>
                     <a href="#"><span class="material-symbols-outlined">analytics</span> 2</a>
                     <a href="#"><span class="material-symbols-outlined">person</span> 3</a>
