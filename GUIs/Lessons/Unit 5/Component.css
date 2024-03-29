@@ -137,7 +137,7 @@ section > * {
     align-items: center;
     margin: 4px 4px 4px 4px;
     border-radius: 10px;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     z-index: 3;
 }
@@ -152,13 +152,30 @@ section > * {
 
 /* NavBar Styline */
 
-#navBarExample {
-    background-color: #333;
-    overflow:auto;
+#navBarComponent{ /* sets the height of the example window */
+    max-height: 240px;
+    justify-content: flex-start;
+}
+
+.page-content{ /* sets the width of the example window */
+    width: 100%;
+    
+}
+
+.extra-space{
+    display: flex;
+    height: 600px;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 1em;
 }
 
 #navBarTwo{
+    background: transparent;
     background-color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    height: 64px;
 }
 
 #navBarButton {
@@ -173,6 +190,20 @@ section > * {
 
 }
 
+#navBarTitle {
+    white-space: nowrap;
+    margin-right: 16px;
+}
+
+.navLinks{
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 1rem;
+    font-size: small;
+}
 
 /* Navigation Drawer Styling */
 #navDrawer {
