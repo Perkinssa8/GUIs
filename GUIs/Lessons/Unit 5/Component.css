@@ -305,6 +305,41 @@ section > * {
 
 }
 
+/* Image Carousel Styling */
+#carouselComponent{
+    overflow:hidden;    
+}
+
+#carousel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:  row;
+    overflow:hidden; 
+}
+
+#carousel.activate{
+    animation: slide 5s infinite;
+}
+
+/* The previous is a class that will trigger animation on the carousel. The animation will slide the images from right to left.
+Next (really first), I will use @keyframes to define the animation.
+In which, I use the transform property to move the images from right to left.
+that has the duration very long, but most of it happening at 0 - 25%
+The animation will repeat infinitely.
+As it does, a while loop, in Javascript continuously changes the order of the elements using the removeChild and appendChild method. */
+
+.carousel-item{
+    height: 250px;
+    width: 300px; 
+}
+
+.carousel-item img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
 .imgcontainer{
     display: flex;
     width: 100%;
