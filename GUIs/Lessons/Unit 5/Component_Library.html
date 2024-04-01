@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="Component.css" defer />
     <script src="Perkins_CSS_Components.js" defer></script>
     <script src="bouncingBall.js" defer></script>
+    <script src="pre_Links.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +26,11 @@
     <header>
         <h1>CSS Library</h1>
     </header>
-    <nav class="navBar" id="principalNav">Create a Website with
+    <nav class="navBar" id="principalNav">
+        <button class="menu" id="hamburger">
+            <div class="material-symbols-outlined">menu</div>
+        </button>
+        Create a Website with
         <span id="websiteLogo" class=".honk-tool" >tOOOl Kit</span>
     </nav>
 
@@ -62,6 +67,30 @@
                             <h1>Page Content</h1>
                             <p>Content goes here</p>
                         </div>
+                    </article>
+                </div>
+            </div>
+            <div class="newDiv">
+                <h3>HTML Script</h3>
+                <div class="example">
+                    <article class="page-content">
+                        <pre class="html" id="navBar-HTML"></pre>
+                    </article>
+                </div>
+            </div>
+            <div class="newDiv">
+                <h3>Java Script</h3>
+                <div class="example">
+                    <article class="page-content">
+                        <pre class="html" id="navBar-js">No JavaScript Necessary</pre>
+                    </article>
+                </div>
+            </div>
+            <div class="newDiv">
+                <h3>CSS Stylesheet</h3>
+                <div class="example">
+                    <article class="page-content">
+                        <pre class="html" id="navBar-CSS"></pre>
                     </article>
                 </div>
             </div>
@@ -113,12 +142,12 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section id="carouselImg">
             <h2>Image Carousel</h2>
             <div>
                 <h3>Example</h3>
                 <div id="carouselComponent" class="example">
-                    <div id="carousel" class="carousel">
+                    <div id="carousel"  class="activate">
                         <div class="carousel-item">
                             <img src="20231026.jpg" alt="placeholder" />
                         </div>
@@ -131,24 +160,57 @@
                         <div class="carousel-item">
                             <img src="20231201.jpg" alt="placeholder" />
                         </div>
+                        <div class="carousel-item">
+                            <img src="20231004.jpg" alt="placeholder" />
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section>
+        <section id="spinLoaders">
             <h2>Loading Spinner</h2>
             <div id="loaderExample">
-                <h3>Example</h3>
-                <div id="loaderComponent">
+                <h3>Examples: Interactive, Stylish, and Text Loaders</h3>
+                <div id="loaderComponent" class="example">
                     <div id="loaderSpinner" class="loader"></div>
+                    <!-- This component I created from a tutorial but I changed the parameters to have a theme like the word "toool Kit" at the top of the page. -->
+                    <svg class="pl" viewBox="0 0 176 160" width="176px" height="160px"> 
+                        <defs>
+                            <linearGradient id="pl-grad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="hsl(38,90%,65%)" />
+                                <stop offset="30%" stop-color="hsl(33,90%,55%)" />
+                                <stop offset="100%" stop-color="hsl(338,90%,60%)" />
+                            </linearGradient>
+                        </defs>
+                        <g fill="none" stroke-width="16" stroke-linecap="round">
+                            <circle class="pl__ring" r="56" cx="88" cy="96" stroke="hsla(0,10%,10%,0.1)" />
+                            <path class="pl__worm1" d="M144,96A56,56,0,0,1,32,96" stroke="url(#pl-grad)" stroke-dasharray="43.98 307.87" />
+                            <path class="pl__worm2" d="M32,136V96s-.275-25.725,14-40" stroke="hsl(33,90%,55%)" stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                            <path class="pl__worm3" d="M144,136V96s.275-25.725-14-40" stroke="hsl(33,90%,55%)" stroke-dasharray="0 40 0 44" stroke-dashoffset="0.001" visibility="hidden" />
+                        </g>
+                    </svg>
+                    <div>
+                        <div id="loaderText" data-text="Loading...">Loading</div>
+                    </div>
                 </div>
+                
         </section>
     </main>
     
 
 <!-- Side Bar and Footer -->
     <aside>
-        <h1>Menu</h1>
+
+        <nav id="mainDrawer" class = "mainDrawer">
+            <h3> If your component doesn't work with the provided styling, Here are the main styling elements you can use in the body of your website</h3>
+            <p ><span id="htmlInfo" class="example"></span></p>
+            <p ><span id="rootInfo" class="example"></span></p>
+            <p ><span id="bodyInfo" class="example"></span></p>
+            <p ><span id="containerInfo" class="example"></span></p>
+        </nav>
+
     </aside>
-    <footer></footer>
+    <footer>Sam Perkins
+        <span>A02254025</span>
+    </footer>
 </body>
