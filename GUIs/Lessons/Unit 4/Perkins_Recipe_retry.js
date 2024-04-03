@@ -128,7 +128,6 @@ document.querySelector('#addIngredient').addEventListener('click', () => {
   let ingredient = document.querySelector('#ingredients').value
   createIngredient(ingredient);
   document.getElementById('ingredients').value = '';
-
 });
 
 //function for creating an ingredient
@@ -162,6 +161,13 @@ function createInstruction(instruction) {
     newDiv.remove();
   });
 }
+
+//using the enter key to add ingredients
+document.getElementById('ingredients').addEventListener('keypress', (e) => {
+  let instruction = document.querySelector('#instructions').value
+  createInstruction(instruction);
+  document.getElementById('instructions').value = '';
+});
 
 // Making a more readable recipe if needed (for display without creating a card)
 function parseIngredients(input) {
