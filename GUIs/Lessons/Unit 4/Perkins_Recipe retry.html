@@ -1,0 +1,90 @@
+<html lang="en">
+    <head>
+        <title>Recipe Card Builder</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Protest+Riot&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+        <script src="Perkins_Recipe_retry.js" defer></script>
+        <link rel="stylesheet" href="Recipe_retry.css" defer />
+    </head>
+    <body data-theme="mediumText" class="light">
+        <header id="header" class="fullHeader">
+            <div id="headerBar">
+                <div class="headerLeft">
+                    <div>
+                        <button for="whichPage" id="navigation">Library
+                            <input type="checkbox" style="display:none;" id="whichPage"></input>
+                        </button>
+                    </div>
+                </div>
+                <div class="headerCenter">
+                    <div>
+                    </div>
+                </div>
+                <div class="headerRight">
+                    <div class="menuWrapper">
+                        <button type="button" aria-label="menu" id="hamburgerButton">
+                            <nav aria-label="Accessibility menu" class = "AssemblyIcon" role="img">
+                                <label for="hamburger">Accessibility &#9776</label>
+                                <input type="checkbox" id="hamburger" />
+                            </nav>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <span>
+            <nav id="hamOptions">
+                <label for="darkMode" class="toggle">
+                    <input type="checkbox" class="darkMode" id="darkMode" aria-label="darkmode toggle"/>
+                    Dark Mode
+                </label>
+                <label for="largeText">
+                    <input class="text-size" name="text-size" type="radio" id="largeText" value="large"aria-label="large text" />
+                    Large
+                </label>
+                <label for="mediumText">
+                    <input class="text-size" name="text-size" type="radio" id="mediumText" value="medium" checked aria-label="medium text"/>
+                    Medium
+                </label>
+                <label for="smallText">
+                    <input class="text-size" name="text-size" type="radio" id="smallText" value="small" aria-label="small text"/> 
+                    Small
+                </label>
+            </nav>
+        </span>
+        <main id="main" style="display:none" class="page">
+            <div id="titleBox">
+                <button id="Title">
+                    <h1>Library</h1>
+                </button>
+            </div>
+            <container id="recipeLibrary">
+            </container>
+                
+        </main>
+        <section id="subPage" style="display:block" class="page">
+            <div id="titleBox">
+                <button id="Title">
+                    <h1>Recipe Card Builder</h1>
+                </button>
+            </div>
+            <div class="form">
+                <input type="text" id="recipeTitle" placeholder="Recipe Title"> </input>
+                <input type="text" id="ingredients" placeholder="Ingredient name... Press enter or click 'ADD' to add a new ingredient">
+                    <button type="button" class="add" id="addIngredient">ADD</button>
+                </input>
+                <div id="recipeBin" class="bin"></div>
+                <input type="text" id="instructions" placeholder="Instructions: add one at a time">
+                    <button type="button" class="add" id="addInstruction">ADD</button>
+                </input>
+                <div id="instructionBin" class="bin">Instructions will appear here</div>
+
+            </div>
+            <div class="finalize">
+                <button type="button" class="final" id="reset" aria-label="reset">RESET</button>
+                <button type="button" class="final" id="save" aria-label="save the recipe">SAVE RECIPE TO LIBRARY</button>
+            </div>
+        </section>
+    </body>
