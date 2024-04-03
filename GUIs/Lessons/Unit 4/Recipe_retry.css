@@ -49,7 +49,7 @@ body{
   background-color: var(--primary-color);
   color: var(--accent-color-2);
   font-family: "Quicksand", Arial, sans-serif;
-  font-size: 1em; /*This is adjusted */
+  font-size: 1.33em; /*This is adjusted */
   margin: 0 0 0 0;
   padding: 0;
   display: flex;
@@ -96,19 +96,27 @@ header{
   justify-content: flex-end;
 }
 
-#hamburger{
+#hamburger{ /*hamburger checkbox - hidden*/
   display: none;
 }
 
-#hamOptions {
-  display: none;
+#hamOptions { /*hamburger menu - to slide in*/
+  display: flex ;
+  position:fixed ;
+  right: 0px;
+  bottom:0;
+  top: 2.67em;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1em;
+  background-color: var(--primary-color) ;
+  width: 300px;
   margin: 0;
-  padding: 0.75em 0 0.75em 0; /*This is adjusted */
+  padding: 1em; /*This is adjusted */
   border-top: 1px solid var(--accent-color-2);
+  box-shadow: 10px 0px 10px -5px rgba(0, 0, 0, 0.75);
+  transition 0.5s ease-in-out;
 }
 
 
