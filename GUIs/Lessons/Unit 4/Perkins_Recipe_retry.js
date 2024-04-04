@@ -50,7 +50,22 @@ class Recipe {
           writeRecipeToFile(recipe);
         }
         if (e.target.id.includes('edit')) { // makes the recipe.ingredients into a an editable div
-          
+          let index = e.target.dataset.index;
+          let title = this.recipes[index].title;
+          let ingredients = this.recipes[index].ingredients;
+          let instructions = this.recipes[index].instructions;
+          document.getElementById('recipeTitle').value = title;
+          document.getElementById('recipeBin').innerHTML = '';
+          document.getElementById('instructionBin').innerHTML = '';
+          ingredients.forEach((ingredient) => {
+            createIngredient(ingredient);
+          });
+          instructions.forEach((instruction) => {
+            createInstruction(instruction);
+          });
+          this.removeRecipe(index);
+          whichPage.checked = false;
+          document.getElementById('whichPage').dispatchEvent(new Event('change'));
         }
   
 
@@ -77,20 +92,23 @@ function checkButton(buttonID, checkboxID) {
 }
 
 checkButton('navigation', 'whichPage'	)
-whichPage.addEventListener('change', (e) => {
+// putting the togglePage function here so maybe I can use it for more than one event listener
+function togglePage() {
   const mainpage = document.getElementById('main');
   const subpage = document.getElementById('subPage');
-    if (e.target.checked) {
-        console.log('going to subpage');
-        mainpage.style.display = 'flex';
-        subpage.style.display = 'none';
-    }
-    else{
-        console.log('going to main page');
-        mainpage.style.display = 'none';
-        subpage.style.display = 'block';        
-    }
-});
+  if (whichPage.checked) {
+    console.log('going to subpage');
+    mainpage.style.display = 'flex';
+    subpage.style.display = 'none';
+  } else {
+    console.log('going to main page');
+    mainpage.style.display = 'none';
+    subpage.style.display = 'block';
+  }
+}
+
+// Add the event listener to the checkbox
+whichPage.addEventListener('change', togglePage);
 
 checkButton('hamburgerButton', 'hamburger')
 hamburger.addEventListener('change', (e) => {
@@ -168,6 +186,15 @@ document.getElementById('ingredients').addEventListener('keypress', (e) => {
     let ingredient = document.querySelector('#ingredients').value;
     createIngredient(ingredient);
     document.getElementById('ingredients').value = '';
+  }
+});
+
+//using the enter key to add instructions
+document.getElementById('instructions').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    let instruction = document.querySelector('#instructions').value;
+    createInstruction(instruction);
+    document.getElementById('instructions').value = '';
   }
 });
 

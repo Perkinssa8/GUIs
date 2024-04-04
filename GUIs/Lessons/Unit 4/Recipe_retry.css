@@ -167,7 +167,8 @@ input[type="text"]{
   flex-wrap: wrap;
 }
 
-.ingredient{
+.ingredient,
+.instruction{
   display:flex;
   flex-direction: row;
   gap: 1em;
@@ -180,6 +181,7 @@ input[type="text"]{
 .ingredient :is(label, input){
   display: block;
 }
+
 
 
 
@@ -197,4 +199,26 @@ button {
 button:hover {
   background-color:var(--accent-color-1) ;
   color: var(--accent-color-2);
+}
+
+
+/* Recipe Card and Main Page styling*/
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+
+}
+
+#recipeLibrary{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+}
+
+.recipeCard{
+  align-items: center;
+
 }
