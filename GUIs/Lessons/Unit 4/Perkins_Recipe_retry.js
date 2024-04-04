@@ -164,9 +164,11 @@ function createInstruction(instruction) {
 
 //using the enter key to add ingredients
 document.getElementById('ingredients').addEventListener('keypress', (e) => {
-  let instruction = document.querySelector('#instructions').value
-  createInstruction(instruction);
-  document.getElementById('instructions').value = '';
+  if (e.key === 'Enter') {
+    let ingredient = document.querySelector('#ingredients').value;
+    createIngredient(ingredient);
+    document.getElementById('ingredients').value = '';
+  }
 });
 
 // Making a more readable recipe if needed (for display without creating a card)
