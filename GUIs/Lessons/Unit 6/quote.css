@@ -84,6 +84,20 @@ body{
     border: none;
 }
 
+.searchEngine{
+    position: relative;
+    display: inline-block;
+    background-color:transparent;
+    color:white;
+    box-shadow: none;
+    border: none;
+}
+
+.innerButton{
+    padding:0;
+    background-color:transparent;
+}
+
 #navBarTitle {
     white-space: nowrap;
     margin-right: 16px;

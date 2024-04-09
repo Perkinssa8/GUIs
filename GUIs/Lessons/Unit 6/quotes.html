@@ -6,6 +6,7 @@
     <!-- For the quotes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" defer/>
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="quote.css" defer />
     <script src="Perkins_Sam_quotes.js" defer></script>
@@ -27,8 +28,15 @@
             <span class="material-symbols-outlined">menu</span>
         </button>
         <span id="navBarTitle">Quote Finder</span>
+        <div class="searchEngine">
+            <input type="text" id="searchBar" placeholder="Search for a quote"></input>
+                <button id="searchButton" class="innerButton">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
         <div class="navLinks">
-            <a href="#" class="material-symbols-outlined">Saved</a>
+            <button id="search" class="menu">
+            <span class="material-symbols-outlined">search</span></button>
         </div>
     </nav>
     <header> Give Me Quotes</header>
