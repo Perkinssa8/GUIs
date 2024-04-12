@@ -133,3 +133,8 @@ body{
     align-items: center;
 }
 /* use the tab index to target menu with tabbing - figure out how to use space to open it or enter */
+
+@media screen and (min-width: 480px) {
+    #leftsidebar {width: 200px; float: left;}
+    #main {margin-left: 216px;}
+  }
