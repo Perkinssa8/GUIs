@@ -1,10 +1,10 @@
 async function getQuote () {
-    const result = await fetch("https://api.quotable.io/random")
+    const result = await fetch("https://usu-quotes-mimic.vercel.app/api/random");
     const body = await result.json();
     return body;
 };
 
-document.body.addEventListener("click", async () => {
+document.getElementById('changeQuote').addEventListener("click", async () => {
     const quote = await getQuote();
     document.getElementById("quote-content").innerText = quote.content;
     document.getElementById("quote-author").innerText = `- ${quote.author}`;
@@ -24,10 +24,19 @@ document.getElementById("search").addEventListener("click", () => {
         document.getElementById("navBarTitle").style.display = "block"
     }
 });
+
 async function searchQuote() {
     const search = await document.getElementById("search-input").value;
+    const result = await fetch(`https://usu-quotes-mimic.vercel.app/api/search?query=${search}`);
+    console.log(await result.json())
 }
 
+document.getElementById("searchButton").addEventListener("keyup", async (event) => {
+    if (event.key === "Enter") {
+        await searchQuote();
+    }
+});
 
-const wrap = (arg1)=> (arg2) => (arg3) => `${arg1} - ${arg2} - ${arg3}`;
-console.log(wrap("Hello, world"));
+document.getElementById("searchButton").addEventListener("click", async (event) => {
+    await searchQuote();
+});
