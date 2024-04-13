@@ -36,7 +36,8 @@
     --red-two:#9E2A2B;
     --orange: #E09F3E;
     --yellow: #FFF3B0;
-    --blue: #335C67 ;
+    --green: #2a9d8f ;
+    --blue: #264653;
 
 }
 
@@ -48,8 +49,10 @@ html{
 
 .quote{
     font-family: "Kalam", "honk", sans-serif;
-    font-weight: 400;
-
+    font-weight: 500;
+    color: var(--yellow);
+    font-size: 1.25em;
+    margin: 0.75em;
 }
 
 
@@ -69,9 +72,14 @@ header{
 body{
     margin: 0;
     background-color: var(--blue);
-    height: 100vh;
+    height: 65vh;
     width: 100vw;
 }
+
+#navBarTwo[data-set='open']{
+    display: none;
+}
+
 
 .menu {
     padding: 16px;
@@ -93,10 +101,31 @@ body{
     border: none;
 }
 
-.innerButton{
-    padding:0;
-    background-color:transparent;
+.searchEngine[data-open='true']{
+    position: fixed;
+    top: 15vh;
 }
+
+#searchBar{
+    height: 5.5vh;
+    width: 66vw;
+    padding-right: 8vw;
+    border-radius: 25px;
+    padding-left: 3vw;
+}
+
+.innerButton{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 8px 0px 0px;
+    border: none;
+    background-color:transparent;
+    cursor:var(--blue)
+}
+
+
 
 #navBarTitle {
     white-space: nowrap;
@@ -130,11 +159,57 @@ body{
 }
 
 .quotebox{
+    display: block;
     align-items: center;
 }
+
+.quotebox[data-open='false']{
+    display: none;
+
+
+}
+
 /* use the tab index to target menu with tabbing - figure out how to use space to open it or enter */
+#searchResults{
+    display: none;
+}
+
+#searchResults[data-open='true']{
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: 0.5em;
+}
+
+
+.results{
+    font-size: 1em;
+    padding: 0.5em;
+    border-radius: 0.725em;
+    background-color: var(--green);
+    box-shadow: var(--red-two) 0px 0px 0.25em var(--red-color) 0px 0px 0.5em;
+    color: beige
+}
+
+#pinned{
+    padding:0;
+}
+
+#pinned .material-symbols-outlined{
+    font-variation-settings:
+    'FILL' 1,
+}
+.results .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
 
 @media screen and (min-width: 480px) {
     #leftsidebar {width: 200px; float: left;}
     #main {margin-left: 216px;}
   }
+
