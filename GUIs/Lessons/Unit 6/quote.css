@@ -194,9 +194,13 @@ body{
 }
 
 #pinned{
-    padding:2px;
+    padding: 0.75em;
     border-radius: 0.725em;
     background-color: var(--red-color);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    color: var(--yellow);
 }
 .results .material-symbols-outlined {
   font-variation-settings:
