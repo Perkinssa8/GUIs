@@ -23,6 +23,7 @@ const searchResults = document.getElementById("searchResults");
 const searchEngine = document.querySelector(".searchEngine");
 const navBarTwo = document.querySelector("#navBarTwo");
 const quoteBox = document.querySelector(".quotebox");
+const pinned = document.querySelector("#pinned");
 
 // Typical event listener to select input
 const inputEvent = (openBar) => {
@@ -52,13 +53,20 @@ searchBar.addEventListener("blur", () => {
 
 
 // Function to search for a quote
+let emptySearch = false;
 async function searchQuote() {
     // try and catch to handle if the search is not found or empty
     const search = await document.getElementById("searchBar").value;
-    const result = await fetch(`https://usu-quotes-mimic.vercel.app/api/search?query=${search}`);
-    console.log(result)
-    const find = await result.json();
-    return find;
+    if (search === "") {
+        throw new Error("No search query entered");
+        emptySearch = true;
+    }else {
+        emptySearch = false;
+        const result = await fetch(`https://usu-quotes-mimic.vercel.app/api/search?query=${search}`);
+        console.log(result)
+        const find = await result.json();
+        return find;
+    }
 }
 
 // Event listener to search for a quote with the enter key or the button
@@ -76,6 +84,9 @@ document.getElementById("searchBar").addEventListener("keyup", async (event) => 
             }
         }catch (error) {
             console.log(error);
+            if (emptySearch === true) {
+                alert("Please enter a search query");
+            }	
         }
     }
 });
@@ -89,17 +100,20 @@ document.getElementById("searchButton").addEventListener("click", async (event) 
 
 // function to create a search result box for each item
 function getSearchResults(result) {
-    searchResults.innerHTML = "";
+    document.querySelector(".resultsbox").innerHTML = "";
     for (quote in result) {
         const box = document.createElement("div")
         box.classList.add("results");
         const div = document.createElement("div");
         div.classList.add("material-symbols-outlined");
+        div.classList.add("keep");
         div.textContent = "keep";
+        div.dataset.open = "false";
+        div.addEventListener("click", () => keepQuote(box));
         box.appendChild(div);
         const text = document.createTextNode(`${result[quote].author} ~\n\n ${result[quote].content}`);
         box.appendChild(text);
-        document.getElementById("searchResults").appendChild(box);
+        document.getElementById("searchBox").appendChild(box);
         inputEvent(false);
     }
 }
@@ -124,16 +138,16 @@ document.getElementById("navBarButton").addEventListener("click", () => {
     searchBar.value = "";
 });
 
-// Event listener for the keep button
-const pinned = document.getElementById("pinned");
-searchResults.querySelectorAll(".material-symbols-outlined").forEach((element) => {
-    element.dataset.open = "false";
-    element.addEventListener("click", () => {
-        console.log("keep");
-        element.dataset.open = !element.dataset.open;
-    });
-    //move the element to the pinned dive
-    pinned.appendChild(element.parentElement);
-    //remove the element from the search results
-    element.parentElement.remove();
-});
+// Event listener for the keep button - written as a function to be called in the
+const keepQuote = (box) => {
+    
+    console.log("keep/removed");
+    box.dataset.open = !box.dataset.open;
+    if (box.dataset.open === "true") {
+        //move the element to the pinned dive
+        pinned.appendChild(box);
+    } else {
+        //push the element back to the search results
+        searchResults.appendChild(box);
+    }   
+}
