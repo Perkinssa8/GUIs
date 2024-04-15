@@ -197,6 +197,10 @@ body{
     display: none;
 }
 
+.resultsbox{
+    gap:0.5em;
+}
+
 #searchResults[data-open='true']{
     display: flex;
     flex-direction: column;
@@ -212,6 +216,7 @@ body{
     background-color: var(--green);
     box-shadow: var(--red-two) 0px 0px 0.25em var(--red-color) 0px 0px 0.5em;
     color: beige;
+    margin-top: 0.5em;
 }
 
 #pinned{
@@ -223,12 +228,13 @@ body{
     gap: 0.5em;
     color: var(--yellow);
 }
+
 .results .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
 .results[data-open='true'] .material-symbols-outlined{

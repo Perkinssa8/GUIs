@@ -58,8 +58,8 @@ async function searchQuote() {
     // try and catch to handle if the search is not found or empty
     const search = await document.getElementById("searchBar").value;
     if (search === "") {
-        throw new Error("No search query entered");
         emptySearch = true;
+        throw new Error("No search query entered");
     }else {
         emptySearch = false;
         const result = await fetch(`https://usu-quotes-mimic.vercel.app/api/search?query=${search}`);
@@ -93,8 +93,22 @@ document.getElementById("searchBar").addEventListener("keyup", async (event) => 
 
 // Event listener to search for a quote with the button
 document.getElementById("searchButton").addEventListener("click", async (event) => {
-
-    await searchQuote();
+    try {
+        event.preventDefault();
+        let resultObj = await searchQuote();
+        console.log(resultObj);
+        const result = resultObj.results;
+        console.log(result);
+        getSearchResults(result);
+        if(!openResults) {
+            toggleResults();
+        }
+    }catch (error) {
+        console.log(error);
+        if (emptySearch === true) {
+            alert("Please enter a search query");
+        }	
+    }
 
 });
 
@@ -110,6 +124,7 @@ function getSearchResults(result) {
         div.textContent = "keep";
         div.dataset.open = "false";
         div.addEventListener("click", () => keepQuote(box));
+        div.tabIndex = [(quote + 1)]; 
         box.appendChild(div);
         const text = document.createTextNode(`${result[quote].author} ~\n\n ${result[quote].content}`);
         box.appendChild(text);
