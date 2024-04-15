@@ -61,7 +61,6 @@ header{
     left: 0;
     width: 100%;
     height: 48px;
-    background: var(--yellow);/* linear-gradient(var(--quaternary-color),var(--primary-color) ); */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,11 +73,22 @@ body{
     background-color: var(--blue);
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
 }
 
 #navBarTwo[data-set='open']{
     display: none;
 }
+
+#navBarButton{
+    border:3px groove var(--green);
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    margin: 1em;
+    transition: background-color .4s ease-in-out, box-shadow .3s ease, color;
+}
+
 
 
 .menu {
@@ -87,7 +97,7 @@ body{
     justify-content: center;
     align-items: center;
     background-color:transparent;
-    color:white;
+    color:black;
     box-shadow: none;
     border: none;
 }
@@ -112,7 +122,7 @@ body{
     width: 66vw;
     padding-right: 8vw;
     border-radius: 25px;
-    padding-left: 3vw;
+    padding-left: 8vw;
 }
 
 .innerButton{
@@ -126,6 +136,16 @@ body{
     cursor:var(--blue)
 }
 
+.magGlass{
+    position: absolute;
+    top: 2px;
+    left: 0;
+    bottom: 0;
+    padding: 4px 0px 0px 8px;
+    border: none;
+    background-color: transparent;
+    color: black;
+}
 
 
 #navBarTitle {
@@ -135,18 +155,19 @@ body{
 
 .navBar {
     position: sticky;
-    top: -1px;
+    top: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     padding: 16px 32px;
-    margin: auto;
+    margin: 0px;
     width: 100%;
     background: var(--orange);
-    font-size: 24px; /* Adjust the font size */
-    font-weight: bold; /* Make the font bold */
-    font-stretch: expanded; /* Stretch the font horizontally */
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: expanded;
+    box-sizing: border-box;
 }
 
 .main{
@@ -190,7 +211,7 @@ body{
     border-radius: 0.725em;
     background-color: var(--green);
     box-shadow: var(--red-two) 0px 0px 0.25em var(--red-color) 0px 0px 0.5em;
-    color: var(--red-two)
+    color: beige;
 }
 
 #pinned{
@@ -215,7 +236,12 @@ body{
 }
 
 @media screen and (min-width: 480px) {
-    #leftsidebar {width: 200px; float: left;}
-    #main {margin-left: 216px;}
+    .keep {width: 200px; float: center;}
+    .main {padding-left: 216px;}
+    #navBarButton:hover{
+        border:5px groove var(--yellow);
+        background-color: var(--green);
+    }
+
   }
 
